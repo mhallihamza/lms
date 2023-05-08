@@ -1,0 +1,29 @@
+.custom-pagination 
+    .swiper-pagination-bullet {
+       background-color: white;
+       border-radius: 9999;
+       border-color: blueviolet;
+       border-width: 2%;
+       border-style: solid;
+    }
+.custom-pagination 
+    .swiper-pagination-bullet-active {
+       background-color: fuchsia;
+       color : fuchsia;
+    }
+tr th {
+   text-align: start;
+   margin-left: 12px;
+   border-left: 1px;
+   border-color: rgb(229, 231, 235);
+   border-style: solid;
+   height: 26px;
+}
+tr td {
+   border-left: 1px;
+   border-color: rgb(229, 231, 235);
+   border-style: solid;
+}
+th,td {
+   padding: 2px 8px 0;
+}
