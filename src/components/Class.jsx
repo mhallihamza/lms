@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import useFetch from '../hooks/useFetch';
 function Class() {
   const [name, setName] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+
+  const toggleDropdown = (index) => {
+    if (dropdownOpen === index) {
+      setDropdownOpen(null);
+    } else {
+      setDropdownOpen(index);
+    }
+  };
   const { data, err, refetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/users");
   const { data: classData, err: classError, refetch: classRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/class");
   const [showForm, setShowForm] = useState(false);
@@ -15,7 +25,18 @@ function Class() {
   let instructors = data.data?.filter(user=>user.role==="instructor");
   console.log(classes);
   console.log(instructors);
-
+  const handleDeleteClass = (id) => {
+    axios
+      .delete(`https://lmsapi-mhallihamza.onrender.com/class/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        // Here you can update the classes list in your state
+        classes = classRefetch();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -32,6 +53,7 @@ function Class() {
       console.error('Error creating class:', error);
       // Do something with the error, e.g. display an error message to the user
     });
+    classes = classRefetch();
   }
 
   return (
@@ -44,36 +66,55 @@ function Class() {
        </div>
        <button onClick={handleCreateButtonClick} className='bg-blue-700 text-white w-28 border border-blue-700 rounded text-xl h-9 pb-9 hover:bg-blue-800'><span className='text-2xl text-gray-300'>+</span> Create</button>
    </div>
-   <div className='flex flex-wrap gap-4'>
-   { classes && classes.map((cls) =>(
-     <div key={cls._id} class="w-[14rem] h-48 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-     <div class="flex justify-end px-4 pt-4">
-         <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-             <span class="sr-only">Open dropdown</span>
-             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-         </button>
-         <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-             <ul class="py-2" aria-labelledby="dropdownButton">
-             <li>
-                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-             </li>
-             <li>
-                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
-             </li>
-             <li>
-                 <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-             </li>
-             </ul>
-         </div>
-     </div>
-     <div class="flex flex-col items-center ">
-         <h5 class="mb-2 text-2xl font-medium text-gray-900 dark:text-white">{cls.name}</h5>
-         <span class="text-l text-center text-gray-500 dark:text-gray-400">{new Date(cls.startTime).toDateString()} to {new Date(cls.endTime).toDateString()}</span>
-
-     </div>
- </div>
-   ))}
-   </div>
+   <div className="flex flex-wrap gap-4">
+      {classes &&
+        classes.map((cls, index) => (
+          <div
+            key={cls._id}
+            className="w-[15rem] relative h-36 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          >
+            <div className="flex justify-end px-4 pt-4">
+              <button
+                id="dropdownButton"
+                onClick={() => toggleDropdown(index)}
+                className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+                type="button"
+              >
+                <span className="sr-only">Open dropdown</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+              </svg>
+              </button>
+              {dropdownOpen === index && (
+                <div
+                  id="dropdown"
+                  className="z-10 absolute text-base list-none bg-white divide-y divide-gray-100 rounded-lg top-2 shadow w-24 left-2 dark:bg-gray-700 transition-opacity opacity-100"
+                >
+                  <button
+                    className="block px-4 py-2 text-sm w-24 text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    type="button"
+                  >
+                    <FaEdit className="inline-block mr-2" />
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteClass(cls._id)}
+                    className="block px-4 py-2 text-sm w-24 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    type="button"
+                  >
+                    <FaTrashAlt className="inline-block mr-2" />
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+            <div class="flex flex-col items-center ">
+            <h5 class="mb-2 text-2xl font-medium text-gray-900 dark:text-white">{cls.name}</h5>
+            <span class="text-l text-center text-gray-500 dark:text-gray-400">{new Date(cls.startTime).toDateString()} to {new Date(cls.endTime).toDateString()}</span>
+            </div>
+          </div>
+        ))}
+    </div>
    </div>
    {showForm && (
    <div className="absolute -top-[22rem] lg:-top-16 -left-5 lg:left-64 h-screen flex justify-center items-center bg-white">
