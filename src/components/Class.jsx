@@ -76,15 +76,15 @@ function Class() {
    </div>
    </div>
    {showForm && (
-   <div className="absolute top-9 -left-32 lg:left-36 h-screen flex justify-center items-center bg-white">
-      <div className="z-10 inset-0 overflow-y-auto w-[34rem]">
+   <div className="absolute -top-[22rem] lg:-top-16 -left-5 lg:left-64 h-screen flex justify-center items-center bg-white">
+      <div className="z-10 inset-0 overflow-y-auto">
 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 <div className="fixed inset-0 transition-opacity">
  <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
 </div>
 <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>;
 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
- <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 sm:px-6">
+ <div className="bg-gray-50 px-4 py-3 w-96 lg:w-[45rem] border-b border-gray-200 sm:px-6">
    <h2 className="text-xl font-bold">Create Class</h2>
    <div className="absolute top-0 right-0 p-2">
      <button

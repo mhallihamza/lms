@@ -40,19 +40,19 @@ function AddAdmin() {
             </button>
         </div>
         <form class="w-full max-w-lg mx-auto mt-4 mb-4">
-  <div class="mb-4">
+  <div class="mb-4 px-3 lg:px-0">
     <label class="block text-gray-700 font-bold mb-2" htmlFor="username">
       Name
     </label>
     <input onChange={handleChange}  class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your name"></input>
   </div>
-  <div class="mb-4">
+  <div class="mb-4 px-3 lg:px-0">
     <label class="block text-gray-700 font-bold mb-2" for="email">
       Email
     </label>
     <input onChange={handleChange} class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email"></input>
   </div>
-  <div class="mb-4">
+  <div class="mb-4 px-3 lg:px-0">
     <label class="block text-gray-700 font-bold mb-2" for="password">
       Password
     </label>

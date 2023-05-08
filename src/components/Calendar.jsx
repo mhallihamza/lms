@@ -97,7 +97,7 @@ const Calendar = () => {
   const {data: examDataT, err: examErrorT, refetch: examRefetchT} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/teacher/"+ user._id);
   let exams = user.role === "student" ? examData.data : examDataT.data;
   return (
-    <div className="bg-white rounded-lg shadow-md p-4">
+    <div className="bg-white rounded-lg shadow-md p-4 overflow-y-auto w-auto">
       <div className="flex items-center mb-4">
         <button
           className="text-indigo-500 hover:text-indigo-700 mr-2"

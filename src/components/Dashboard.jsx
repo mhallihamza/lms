@@ -154,7 +154,7 @@ console.log(Fcount);
     </div>
     </div>
     </div>
-    <div className={`w-[23rem] border relative rounded-sm ml-7 ${user.role==="instructor" ? '' :'hidden'}`}>
+    <div className={`w-[23rem] border relative rounded-sm lg:ml-7 ${user.role==="instructor" ? '' :'hidden'}`}>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Students</div>
       <div className='absolute left-[15rem] bottom-[22rem]'>
         <div className='flex'>
@@ -188,7 +188,7 @@ console.log(Fcount);
       <div className='border-r w-36 pl-2 pr-2 bg-purple-400'>Femunun - <span>{Fcount}</span></div>
     </div>
     </div>
-    <div className={`w-[23rem] border relative rounded-sm ml-7 ${user.role==="admin" ? '' :'hidden'}`}>
+    <div className={`w-[23rem] border relative rounded-sm lg:ml-7 ${user.role==="admin" ? '' :'hidden'}`}>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Students</div>
       <div className='absolute left-[15rem] bottom-[22rem]'>
         <div className='flex'>

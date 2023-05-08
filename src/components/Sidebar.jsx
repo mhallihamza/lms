@@ -24,6 +24,7 @@ function Sidebar() {
     const handleClick = e => {
       dispatch({type:"LOGOUT"})
       navigate('/login')
+      location.reload()
     }
     if(user){
       return (
