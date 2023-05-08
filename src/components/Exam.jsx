@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import useFetch from '../hooks/useFetch';
 function Exam() {
     const {user,loading,error,dispatch} = useContext(AuthContext)
-    const {data,err,refetch} = useFetch("http://localhost:3000/exam/"+ user._id)
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/"+ user._id)
     let exams = data.data;
     console.log(exams);
   return (

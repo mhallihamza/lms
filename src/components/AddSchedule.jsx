@@ -14,9 +14,9 @@ function AddSchedule() {
         { name: 'Saturday', number: 6 }
       ];
           
-    const {data:classData,err:classError,refetch:classReftech} = useFetch("http://localhost:3000/class");
+    const {data:classData,err:classError,refetch:classReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
     let cls = classData.data;
-    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("http://localhost:3000/course");
+    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course");
     let courses = courseData.data;
     const [user, setuser] = useState({
         class:undefined,

@@ -23,18 +23,18 @@ function CreateExercice() {
     };
   const {user,loading,error,dispatch} = useContext(AuthContext)
   if(user.role==="admin"){
-  const {data,err,refetch} = useFetch("http://localhost:3000/exercice")
+  const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exercice")
   var exercices = data.data;
   } else {
-    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("http://localhost:3000/course/teacher/"+ user._id)
+    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course/teacher/"+ user._id)
     var courses = courseData.data;
-    var {data,err,refetch} = useFetch("http://localhost:3000/exercice/teacher/"+ user._id)
+    var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exercice/teacher/"+ user._id)
     var exercices = data.data;
   }
   console.log(exercices);
   const handleClick = e => {
     e.preventDefault();
-    axios.post("http://localhost:3000/exercice", create)
+    axios.post("https://lmsapi-mhallihamza.onrender.com/exercice", create)
       .then(res => {
         console.log(res)
         exercices = refetch();

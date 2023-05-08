@@ -24,26 +24,26 @@ function CreateExam() {
     };
   const {user,loading,error,dispatch} = useContext(AuthContext)
   if(user.role==="admin"){
-    var {data,err,refetch} = useFetch("http://localhost:3000/exam")
+    var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam")
     var exams = data.data;
     } else {
-      var {data:courseData,err:courseError,refetch:courseReftech} = useFetch("http://localhost:3000/course/teacher/"+ user._id)
+      var {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course/teacher/"+ user._id)
       var courses = courseData.data;
-      var {data,err,refetch} = useFetch("http://localhost:3000/exam/teacher/"+ user._id)
+      var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/teacher/"+ user._id)
       var exams = data.data;
     }
   console.log(exams);
   const handleClick = e => {
     e.preventDefault();
     console.log(create);
-    axios.post("http://localhost:3000/exam", create)
+    axios.post("https://lmsapi-mhallihamza.onrender.com/exam", create)
       .then(res => {
         console.log(res)
-        axios.get(`http://localhost:3000/course`)
+        axios.get(`https://lmsapi-mhallihamza.onrender.com/course`)
         .then(res => {
           const course = res.data?.filter(course=>course._id===create.course);
           console.log(res);
-          axios.get(`http://localhost:3000/class`)
+          axios.get(`https://lmsapi-mhallihamza.onrender.com/class`)
           .then(res => {
             console.log(res);
             const filteredClasses = res.data?.filter(cls => {
@@ -52,7 +52,7 @@ function CreateExam() {
             });
             const studentIds = filteredClasses.flatMap(cls => cls.students.map(student => student._id));
             console.log(studentIds);
-            axios.post("http://localhost:3000/notification", {
+            axios.post("https://lmsapi-mhallihamza.onrender.com/notification", {
               sender : user._id,
               message : `you have exam in ${create.subject} after ${parseInt(((new Date(create.date)).getTime() - (new Date()).getTime()) / (24 * 60 * 60 * 1000),10)} days`,
               receiverIds : studentIds

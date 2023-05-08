@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import useFetch from '../hooks/useFetch';
 function Voir_Notes() {
     const {user,loading,error,dispatch} = useContext(AuthContext)
-    const {data,err,refetch} = useFetch("http://localhost:3000/note/"+ user._id)
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/note/"+ user._id)
     let notes = data.data;
   return (
     <div>

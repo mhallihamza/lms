@@ -10,17 +10,17 @@ function StatistiqueTeacher() {
     data: examData,
     err: examError,
     refetch: examRefetch,
-  } = useFetch('http://localhost:3000/exam/teacher/' + user._id)
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exam/teacher/' + user._id)
   const {
     data: exerciceData,
     err: exerciceError,
     refetch: exerciceRefetch,
-  } = useFetch('http://localhost:3000/exercice/teacher/' + user._id)
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exercice/teacher/' + user._id)
   const {
     data: studentData,
     err: studentError,
     refetch: studentRefetch,
-  } = useFetch('http://localhost:3000/class/teacher/' + user._id)
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/class/teacher/' + user._id)
   let exams = examData.data?.length
   let exercices = exerciceData.data?.length
   let students = studentData.data?.map((cls) => cls.students.length)

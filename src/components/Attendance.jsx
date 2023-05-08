@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import useFetch from '../hooks/useFetch';
 const Attendance = () => {
   const {user,loading,error,dispatch} = useContext(AuthContext)
-  const {data,err,refetch} = useFetch("http://localhost:3000/attendance/"+ user._id);
+  const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/attendance/"+ user._id);
   let attendances = data.data;
   const [filterStatus, setFilterStatus] = useState("");
   const handleFilter = (status) => {

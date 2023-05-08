@@ -5,8 +5,8 @@ function Class() {
   const [name, setName] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const { data, err, refetch } =useFetch("http://localhost:3000/users");
-  const { data: classData, err: classError, refetch: classRefetch } =useFetch("http://localhost:3000/class");
+  const { data, err, refetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/users");
+  const { data: classData, err: classError, refetch: classRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/class");
   const [showForm, setShowForm] = useState(false);
     const handleCreateButtonClick = () => {
       setShowForm(true);
@@ -19,7 +19,7 @@ function Class() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.post('http://localhost:3000/class', {
+    axios.post('https://lmsapi-mhallihamza.onrender.com/class', {
       name,
       startTime,
       endTime,

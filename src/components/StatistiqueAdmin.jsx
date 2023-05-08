@@ -9,17 +9,17 @@ function StatistiqueAdmin() {
     data: examData,
     err: examError,
     refetch: examRefetch,
-  } = useFetch('http://localhost:3000/exam')
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exam')
   const {
     data: exerciceData,
     err: exerciceError,
     refetch: exerciceRefetch,
-  } = useFetch('http://localhost:3000/exercice')
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exercice')
   const {
     data: studentData,
     err: studentError,
     refetch: studentRefetch,
-  } = useFetch('http://localhost:3000/users')
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/users')
   let exams = examData.data?.length
   let exercices = exerciceData.data?.length
   let students = studentData.data?.filter((user) => user.role === "student").length;

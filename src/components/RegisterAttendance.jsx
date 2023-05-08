@@ -8,11 +8,11 @@ const AttendanceList = () => {
     const {user,loading,error,dispatch} = useContext(AuthContext)
     let cls;
     if(user.role==="admin"){
-    const {data,err,refetch} = useFetch("http://localhost:3000/class");
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
      cls = data.data;
     console.log(cls);
     } else {
-      const {data,err,refetch} = useFetch("http://localhost:3000/class/teacher/"+ user._id);
+      const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class/teacher/"+ user._id);
       cls = data.data;
     console.log(cls);
     }
@@ -31,7 +31,7 @@ const AttendanceList = () => {
     }, [newcls]);
     const handleget = event => {
       event.preventDefault();
-      axios.get("http://localhost:3000/attendance/"+date+"/" + selectcls)
+      axios.get("https://lmsapi-mhallihamza.onrender.com/attendance/"+date+"/" + selectcls)
             .then((res)=>{
               setattendance(res.data ? res.data.students : null)
               const filter = cls.filter(cs=>cs.name===selectcls);
@@ -66,7 +66,7 @@ const AttendanceList = () => {
   
   const handlepost = e => {
     e.preventDefault();
-    axios.post("http://localhost:3000/attendance", {date,class:selectcls,students:create})
+    axios.post("https://lmsapi-mhallihamza.onrender.com/attendance", {date,class:selectcls,students:create})
       .then(res => {
         console.log(res)
       })
@@ -76,7 +76,7 @@ const AttendanceList = () => {
   }
   const handleput = e => {
     e.preventDefault();
-    axios.put("http://localhost:3000/attendance", {date,class:selectcls,students:attendance})
+    axios.put("https://lmsapi-mhallihamza.onrender.com/attendance", {date,class:selectcls,students:attendance})
       .then(res => {
         console.log(res)
       })

@@ -9,7 +9,7 @@ function Sidebar() {
     const {user,loading,error,dispatch} = useContext(AuthContext)
     const [show,setShow] = useState(false)
     const navigate = useNavigate();
-    const {data,err,refetch} = useFetch("http://localhost:3000/notification/"+ user?._id)
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/notification/"+ user?._id)
     const notification = data.data;
     console.log(notification);
     useEffect(() => {

@@ -4,7 +4,7 @@ import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
 function CreateSchedule() {
   const navigate = useNavigate();
-  const {data,err,refetch} = useFetch("http://localhost:3000/schedule")
+  const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/schedule")
   const schedules = data.data;
   console.log(schedules);
   

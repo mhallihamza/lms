@@ -9,7 +9,7 @@ import { BiShow } from "react-icons/bi";
 function Teacher() {
     const navigate = useNavigate();
     const {user,loading,error,dispatch} = useContext(AuthContext)
-    const {data,err,refetch} = useFetch("http://localhost:3000/users")
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/users")
     let users = data.data?.filter(user=>user.role==="instructor");
     console.log(users);
   return (

@@ -30,7 +30,7 @@ function Profile() {
         };
         const {_id} = user;
         console.log(_id);
-        await axios.put('http://localhost:3000/user/'+_id,updateUser)
+        await axios.put('https://lmsapi-mhallihamza.onrender.com/user/'+_id,updateUser)
         let old=JSON.parse(localStorage.getItem("user")) || null;
 old.image=url
 localStorage.setItem("user",JSON.stringify(old))

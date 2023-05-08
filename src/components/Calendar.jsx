@@ -93,8 +93,8 @@ const Calendar = () => {
   };
   
   const {user,loading,error,dispatch} = useContext(AuthContext)
-  const {data: examData, err: examError, refetch: examRefetch} = useFetch("http://localhost:3000/exam/"+ user._id);
-  const {data: examDataT, err: examErrorT, refetch: examRefetchT} = useFetch("http://localhost:3000/exam/teacher/"+ user._id);
+  const {data: examData, err: examError, refetch: examRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/"+ user._id);
+  const {data: examDataT, err: examErrorT, refetch: examRefetchT} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/teacher/"+ user._id);
   let exams = user.role === "student" ? examData.data : examDataT.data;
   return (
     <div className="bg-white rounded-lg shadow-md p-4">

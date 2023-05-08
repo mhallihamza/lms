@@ -12,14 +12,14 @@ export default function Notes() {
     const {user,loading,error,dispatch} = useContext(AuthContext)
     let cls;
     if(user.role==="admin"){
-    const {data,err,refetch} = useFetch("http://localhost:3000/class");
-    const { data: examData, err: examError, refetch: examRefetch } =useFetch("http://localhost:3000/exam/admin/"+ selectcls,[selectcls]);
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
+    const { data: examData, err: examError, refetch: examRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/exam/admin/"+ selectcls,[selectcls]);
     var exams = examData?.data;
      cls = data.data;
     console.log(cls);
     } else {
-      const {data,err,refetch} = useFetch("http://localhost:3000/class/teacher/"+ user._id);
-      const { data: examData, err: examError, refetch: examRefetch } =useFetch("http://localhost:3000/exam/class/"+ user._id + "/" + selectcls,[selectcls]);
+      const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class/teacher/"+ user._id);
+      const { data: examData, err: examError, refetch: examRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/exam/class/"+ user._id + "/" + selectcls,[selectcls]);
       var exams = examData?.data;
       cls = data.data;
 
@@ -41,7 +41,7 @@ export default function Notes() {
     }, [newcls]);
     const getdata1 = event => {
       event.preventDefault();
-      axios.get("http://localhost:3000/note/admin/"+ selectcls + "/" + selectexam)
+      axios.get("https://lmsapi-mhallihamza.onrender.com/note/admin/"+ selectcls + "/" + selectexam)
             .then((res)=>{
               setnotes((res.data).length  ? res.data : null)
               console.log(notes)
@@ -54,7 +54,7 @@ export default function Notes() {
   };
     const getdata = event => {
       event.preventDefault();
-      axios.get("http://localhost:3000/note/teacher/"+user._id+"/" + selectcls + "/" + selectexam)
+      axios.get("https://lmsapi-mhallihamza.onrender.com/note/teacher/"+user._id+"/" + selectcls + "/" + selectexam)
             .then((res)=>{
               setnotes((res.data).length  ? res.data : null)
               console.log(notes)
@@ -87,7 +87,7 @@ export default function Notes() {
   };
   const handlepost = e => {
     e.preventDefault();
-    axios.post("http://localhost:3000/note",create)
+    axios.post("https://lmsapi-mhallihamza.onrender.com/note",create)
       .then(res => {
         console.log(res)
       })
@@ -97,7 +97,7 @@ export default function Notes() {
   }
   const handleput = e => {
     e.preventDefault();
-    axios.put("http://localhost:3000/note",notes)
+    axios.put("https://lmsapi-mhallihamza.onrender.com/note",notes)
       .then(res => {
         console.log(res)
       })

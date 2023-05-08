@@ -7,9 +7,9 @@ import { FaDivide } from "react-icons/fa";
 import { BsPencilSquare, BsFillStopwatchFill } from "react-icons/bs";
 const Statistique = () => {
   const {user,loading,error,dispatch} = useContext(AuthContext)
-  const {data: examData, err: examError, refetch: examRefetch} = useFetch("http://localhost:3000/exam/"+ user._id)
-  const {data: exerciceData,err: exerciceError,refetch: exerciceRefetch} = useFetch("http://localhost:3000/exercice/"+ user._id)
-  const {data: attendanceData,err: attendanceError,refetch: attendanceRefetch} = useFetch("http://localhost:3000/attendance/"+ user._id);
+  const {data: examData, err: examError, refetch: examRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/"+ user._id)
+  const {data: exerciceData,err: exerciceError,refetch: exerciceRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exercice/"+ user._id)
+  const {data: attendanceData,err: attendanceError,refetch: attendanceRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/attendance/"+ user._id);
   let exams = examData.data?.length ;
   let exercices = exerciceData.data?.length;
   let attendance = attendanceData.data?.length;

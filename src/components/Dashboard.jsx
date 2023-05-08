@@ -10,20 +10,20 @@ import { AuthContext } from '../context/AuthContext';
 import { PieChart, Pie, Cell } from "recharts";
 function Dashboard() {
   const {user,loading,error,dispatch} = useContext(AuthContext)
-  const {data:dataSchedule,err:errorSchedule,refetch:refecthSchedule} = useFetch("http://localhost:3000/schedule/student/"+user._id)
+  const {data:dataSchedule,err:errorSchedule,refetch:refecthSchedule} = useFetch("https://lmsapi-mhallihamza.onrender.com/schedule/student/"+user._id)
   const schedules = dataSchedule.data;
   console.log(schedules);
-  const {data: attendanceData,err: attendanceError,refetch: attendanceRefetch} = useFetch("http://localhost:3000/attendance/"+ user._id);
+  const {data: attendanceData,err: attendanceError,refetch: attendanceRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/attendance/"+ user._id);
   const {
     data: studentDataA,
     err: studentErrorA,
     refetch: studentRefetchA,
-  } = useFetch('http://localhost:3000/users')
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/users')
   const {
     data: studentData,
     err: studentError,
     refetch: studentRefetch,
-  } = useFetch('http://localhost:3000/class/teacher/' + user._id)
+  } = useFetch('https://lmsapi-mhallihamza.onrender.com/class/teacher/' + user._id)
   const total = attendanceData.data?.length;
   console.log(attendanceData.data);
   const presentCount  = attendanceData.data?.filter((attendance) =>

@@ -5,7 +5,7 @@ import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
 function AddStudent() {
     const navigate = useNavigate();
-    const {data,err,refetch} = useFetch("http://localhost:3000/class");
+    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
      let cls = data.data;
     const [user, setuser] = useState({
         username:undefined,
@@ -24,7 +24,7 @@ function AddStudent() {
     const handleClick = e => {
         e.preventDefault();
       console.log(user)
-        axios.post("http://localhost:3000/register", user)
+        axios.post("https://lmsapi-mhallihamza.onrender.com/register", user)
           .then(res => {
             console.log(res);
           })

@@ -16,7 +16,7 @@ function AddAdmin() {
     const handleClick = e => {
         e.preventDefault();
       
-        axios.post("http://localhost:3000/register", user)
+        axios.post("https://lmsapi-mhallihamza.onrender.com/register", user)
           .then(res => {
             console.log(res);
           })

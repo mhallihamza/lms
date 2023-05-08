@@ -10,9 +10,9 @@ function Class() {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [cls, setcls] = useState('');
-  const { data, err, refetch } =useFetch("http://localhost:3000/users");
-  const { data: courseData, err: courseError, refetch: courseRefetch } =useFetch("http://localhost:3000/course");
-  const { data: classData, err: classError, refetch: classRefetch } =useFetch("http://localhost:3000/class");
+  const { data, err, refetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/users");
+  const { data: courseData, err: courseError, refetch: courseRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/course");
+  const { data: classData, err: classError, refetch: classRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/class");
   const [showForm, setShowForm] = useState(false);
     const handleCreateButtonClick = () => {
       setShowForm(true);
@@ -26,7 +26,7 @@ function Class() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.post('http://localhost:3000/course', {
+    axios.post('https://lmsapi-mhallihamza.onrender.com/course', {
       title,
       description,
       instructor,
