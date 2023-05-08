@@ -47,13 +47,13 @@ function Class() {
     })
     .then(response => {
       console.log('Class created:', response.data);
+      classes = classRefetch();
       // Do something with the response, e.g. redirect to the new class page
     })
     .catch(error => {
       console.error('Error creating class:', error);
       // Do something with the error, e.g. display an error message to the user
     });
-    classes = classRefetch();
   }
 
   return (

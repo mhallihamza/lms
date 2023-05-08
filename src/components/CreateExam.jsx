@@ -36,6 +36,8 @@ function CreateExam() {
   if(user.role==="admin"){
     var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam")
     var exams = data.data;
+    var {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course")
+    var courses = courseData.data;
     } else {
       var {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course/teacher/"+ user._id)
       var courses = courseData.data;
