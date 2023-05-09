@@ -170,7 +170,7 @@ function CreateExam() {
     </div>
         </div>
         {showForm && (
-        <div className="absolute -top-[9rem] lg:top-5 -left-4 lg:left-64 h-screen flex justify-center items-center bg-white">
+        <div className="absolute bottom-[27rem] lg:top-5 -left-2 lg:left-64 h-screen flex justify-center items-center bg-white">
            <div className="z-10 inset-0 overflow-y-auto">
   <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
     <div className="fixed inset-0 transition-opacity">
@@ -178,7 +178,7 @@ function CreateExam() {
     </div>
     <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
     <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <div className="bg-gray-50 px-4 py-3 w-96 lg:w-[45rem] border-b border-gray-200 sm:px-6">
+      <div className="bg-gray-50 px-4 py-3 w-[20rem] lg:w-[45rem] border-b border-gray-200 sm:px-6">
         <h2 className="text-xl font-bold">Create Exam</h2>
         <div className="absolute top-0 right-0 p-2">
           <button

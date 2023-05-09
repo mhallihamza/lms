@@ -86,14 +86,14 @@ function Class() {
    </div>
    </div>
    {showForm && (
-   <div className="absolute -top-[10rem] lg:top-5 -left-4 lg:left-64 h-screen flex justify-center items-center bg-white">
+   <div className="absolute -bottom-[17rem] lg:top-5  lg:left-64 h-screen left-2 flex justify-center items-center bg-white">
       <div className="z-10 inset-0 overflow-y-auto ">
 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 <div className="fixed inset-0 transition-opacity">
  <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
 </div>
 <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-<div className="inline-block align-bottom w-96 lg:w-[45rem] bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+<div className="inline-block align-bottom w-[19rem] lg:w-[45rem] bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
  <div className="bg-gray-50 px-4 py-3 border-b  border-gray-200 sm:px-6">
    <h2 className="text-xl font-bold">Create Course</h2>
    <div className="absolute top-0 right-0 p-2">
@@ -149,7 +149,7 @@ function Class() {
      >
        Teacher
      </label>
-     <select className='border-2 rounded h-10 w-[28.2rem] pl-2' onChange={(e)=>setInstructor(e.target.value)}>
+     <select className='border-2 rounded h-10 w-full pl-2' onChange={(e)=>setInstructor(e.target.value)}>
         <option selected disabled hidden>Select Teacher</option>
         {instructors && instructors.map(instructor=>(
           <option key={instructor._id}  value={instructor._id}>{instructor.username}</option>
@@ -194,7 +194,7 @@ function Class() {
      >
        Class
      </label>
-     <select className='border-2 rounded h-10 w-[28.2rem] pl-2' onChange={(e)=>setcls(e.target.value)}>
+     <select className='border-2 rounded h-10 w-full pl-2' onChange={(e)=>setcls(e.target.value)}>
         <option selected disabled hidden>Select Class</option>
         {classes && classes.map(cs=>(
           <option key={cs._id}  value={cs._id}>{cs.name}</option>
