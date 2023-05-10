@@ -157,7 +157,7 @@ function Why2() {
         </SwiperSlide>
       </Swiper>
     </div>
-    <div className="flex absolute space-x-4 !-top-[8.3rem] ml-[4rem] lg:ml-[21rem] lg:space-x-20 custom-pagination "></div>
+    <div className="flex absolute space-x-4 !-top-[8.3rem] pl-[4rem] lg:ml-0 lg:pl-[23rem] lg:space-x-20 custom-pagination w-full "></div>
     </div>
   );
 }

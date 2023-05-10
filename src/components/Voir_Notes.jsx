@@ -7,6 +7,7 @@ function Voir_Notes() {
     const {user,loading,error,dispatch} = useContext(AuthContext)
     const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/note/"+ user._id)
     let notes = data.data;
+    console.log(notes);
   return (
     <div>
         <div>
@@ -40,7 +41,7 @@ function Voir_Notes() {
             {notes && notes.map(note=>(
               <tr key={note._id}>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-              {note.exam.subject}
+              {note?.exam?.subject}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {note.note}

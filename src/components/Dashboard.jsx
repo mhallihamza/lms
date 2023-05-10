@@ -10,6 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 import { PieChart, Pie, Cell } from "recharts";
 function Dashboard() {
   const {user,loading,error,dispatch} = useContext(AuthContext)
+  console.log(user);
   const {data:dataSchedule,err:errorSchedule,refetch:refecthSchedule} = useFetch("https://lmsapi-mhallihamza.onrender.com/schedule/student/"+user._id)
   const schedules = dataSchedule.data;
   console.log(schedules);
@@ -93,7 +94,8 @@ console.log(Fcount);
     <div className='mb-6'>
       {user.role === "student" ? <Statistique/> : user.role === "instructor" ? <StatistiqueTeacher/> : <StatistiqueAdmin/>}
     </div>
-    <div className={`lg:flex ${user.role==="student" ? '' :'hidden'}`}>
+    <div className={`${user.role==="student" ? '' :'hidden'}`}>
+      <div className='flex'>
     <div className='w-[23rem] border rounded-sm'>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>About Me</div>
       <div>
@@ -114,7 +116,7 @@ console.log(Fcount);
         </div>
       </div>
     </div>
-    <div className='w-[23rem] border rounded-sm lg:ml-7 relative mt-5 lg:mt-0'>
+    <div className='w-[23rem] border rounded-sm lg:ml-7 relative mt-5  lg:mt-0'>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Attendance</div>
       <div className='absolute left-[17rem] bottom-80'>
         <div className='flex'>
@@ -151,6 +153,7 @@ console.log(Fcount);
       <div className='border-r px-2 w-24 bg-green-400'>Present - <span>{presentCount}</span></div>
       <div className='border-r w-24 pl-2 pr-2 bg-red-400'>Absent - <span>{absentCount}</span></div>
       <div className='w-24 bg-yellow-200 pl-4'>Late - <span></span>{lateCount}</div>
+    </div>
     </div>
     </div>
     </div>
