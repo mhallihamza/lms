@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from "../context/ApiContext";
 import useFetch from '../hooks/useFetch';
 const Calendar = () => {
+  const {Api_url} = useContext(ApiContext)
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -93,8 +95,8 @@ const Calendar = () => {
   };
   
   const {user,loading,error,dispatch} = useContext(AuthContext)
-  const {data: examData, err: examError, refetch: examRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/"+ user._id);
-  const {data: examDataT, err: examErrorT, refetch: examRefetchT} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/teacher/"+ user._id);
+  const {data: examData, err: examError, refetch: examRefetch} = useFetch(Api_url+"/exam/"+ user._id);
+  const {data: examDataT, err: examErrorT, refetch: examRefetchT} = useFetch(Api_url+"/exam/teacher/"+ user._id);
   let exams = user.role === "student" ? examData.data : examDataT.data;
   return (
     <div className="bg-white rounded-lg shadow-md p-4 overflow-y-auto w-auto">

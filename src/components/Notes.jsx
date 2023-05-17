@@ -2,9 +2,11 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 import axios from 'axios';
 export default function Notes() {
+    const {Api_url} =  useContext(ApiContext);
     const [selectcls,setselectcls] = useState("");
     const [selectexam,setselectexam] = useState("");
     const [notes,setnotes] = useState("");
@@ -12,14 +14,14 @@ export default function Notes() {
     const {user,loading,error,dispatch} = useContext(AuthContext)
     let cls;
     if(user.role==="admin"){
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
-    const { data: examData, err: examError, refetch: examRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/exam/admin/"+ selectcls,[selectcls]);
+    const {data,err,refetch} = useFetch(Api_url+"/class");
+    const { data: examData, err: examError, refetch: examRefetch } =useFetch(Api_url+"/exam/admin/"+ selectcls,[selectcls]);
     var exams = examData?.data;
      cls = data.data;
     console.log(cls);
     } else {
-      const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class/teacher/"+ user._id);
-      const { data: examData, err: examError, refetch: examRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/exam/class/"+ user._id + "/" + selectcls,[selectcls]);
+      const {data,err,refetch} = useFetch(Api_url+"/class/teacher/"+ user._id);
+      const { data: examData, err: examError, refetch: examRefetch } =useFetch(Api_url+"/exam/class/"+ user._id + "/" + selectcls,[selectcls]);
       var exams = examData?.data;
       cls = data.data;
 
@@ -41,7 +43,7 @@ export default function Notes() {
     }, [newcls]);
     const getdata1 = event => {
       event.preventDefault();
-      axios.get("https://lmsapi-mhallihamza.onrender.com/note/admin/"+ selectcls + "/" + selectexam)
+      axios.get(Api_url+"/note/admin/"+ selectcls + "/" + selectexam)
             .then((res)=>{
               setnotes((res.data).length  ? res.data : null)
               console.log(notes)
@@ -54,7 +56,7 @@ export default function Notes() {
   };
     const getdata = event => {
       event.preventDefault();
-      axios.get("https://lmsapi-mhallihamza.onrender.com/note/teacher/"+user._id+"/" + selectcls + "/" + selectexam)
+      axios.get(Api_url+"/note/teacher/"+user._id+"/" + selectcls + "/" + selectexam)
             .then((res)=>{
               setnotes((res.data).length  ? res.data : null)
               console.log(notes)
@@ -87,7 +89,7 @@ export default function Notes() {
   };
   const handlepost = e => {
     e.preventDefault();
-    axios.post("https://lmsapi-mhallihamza.onrender.com/note",create)
+    axios.post(Api_url+"/note",create)
       .then(res => {
         console.log(res)
       })
@@ -97,7 +99,7 @@ export default function Notes() {
   }
   const handleput = e => {
     e.preventDefault();
-    axios.put("https://lmsapi-mhallihamza.onrender.com/note",notes)
+    axios.put(Api_url+"/note",notes)
       .then(res => {
         console.log(res)
       })
@@ -127,7 +129,7 @@ export default function Notes() {
     </div>
     </div>
     <div className="overflow-x-auto">
-      <div className='border-2 h-12 rounded-sm border-solid pl-4 pt-2 text-lg font-semibold'>Notes</div>
+      <div className='border-2 h-12 rounded-t-md shadow-sm border-solid pl-4 pt-2 text-lg font-semibold'>Notes</div>
       <table className="table-auto w-full">
         <thead className='bg-slate-200'>
           <tr>
@@ -169,7 +171,7 @@ export default function Notes() {
       </table>
     </div>
     <div className='border-x-2 h-6 rounded-sm border-solid'></div>
-    <div className='border-2 h-16 rounded-sm border-solid bg-slate-200'>
+    <div className='border-2 shadow-sm h-16 rounded-b-md border-solid bg-slate-200'>
         <button onClick={notes===null ? handlepost : handleput} className='bg-blue-700 ml-4 mt-3 text-white w-[6.5rem] border border-blue-700 rounded text-l  py-[0.3rem] hover:bg-blue-800'>Save All</button>
     </div>
     </div>

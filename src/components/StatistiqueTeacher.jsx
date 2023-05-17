@@ -1,26 +1,28 @@
 import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch'
 import { FaDivide } from 'react-icons/fa'
 import { BsPencilSquare, BsFillStopwatchFill } from 'react-icons/bs'
 function StatistiqueTeacher() {
+  const {Api_url}  = useContext(ApiContext) 
   const { user, loading, error, dispatch } = useContext(AuthContext)
   const {
     data: examData,
     err: examError,
     refetch: examRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exam/teacher/' + user._id)
+  } = useFetch(Api_url+'/exam/teacher/' + user._id)
   const {
     data: exerciceData,
     err: exerciceError,
     refetch: exerciceRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exercice/teacher/' + user._id)
+  } = useFetch(Api_url+'/exercice/teacher/' + user._id)
   const {
     data: studentData,
     err: studentError,
     refetch: studentRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/class/teacher/' + user._id)
+  } = useFetch(Api_url+'/class/teacher/' + user._id)
   let exams = examData.data?.length
   let exercices = exerciceData.data?.length
   let students = studentData.data?.map((cls) => cls.students.length)
@@ -32,7 +34,7 @@ function StatistiqueTeacher() {
   return (
     <div>
       <div class="mt-4">
-        <div class="flex flex-wrap -mx-6">
+        <div class="flex flex-wrap -mx-4">
           <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
             <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
               <div class="p-3 rounded-full bg-green-600 bg-opacity-75">

@@ -5,12 +5,15 @@ import App from './App'
 import './index.css'
 import('preline')
 import { AuthContextProvider } from './context/AuthContext'
+import { ApiContextProvider } from './context/ApiContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
     <BrowserRouter>
     <AuthContextProvider>
-      <App />
+      <ApiContextProvider>
+         <App />
+      </ApiContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   //</React.StrictMode>,

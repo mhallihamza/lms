@@ -1,10 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import Schedule from './Schedule'
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
 function CreateSchedule() {
+  const {Api_url} = useContext(ApiContext)
   const navigate = useNavigate();
-  const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/schedule")
+  const {data,err,refetch} = useFetch(Api_url+"/schedule")
   const schedules = data.data;
   console.log(schedules);
   

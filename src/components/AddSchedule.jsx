@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
 function AddSchedule() {
+  const {Api_url} = useContext(ApiContext)
     const navigate = useNavigate();
     const weekdays = [
         { name: 'Sunday', number: 0 },
@@ -14,9 +16,9 @@ function AddSchedule() {
         { name: 'Saturday', number: 6 }
       ];
           
-    const {data:classData,err:classError,refetch:classReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
+    const {data:classData,err:classError,refetch:classReftech} = useFetch(Api_url+"/class");
     let cls = classData.data;
-    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course");
+    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch(Api_url+"/course");
     let courses = courseData.data;
     const [user, setuser] = useState({
         class:undefined,
@@ -34,7 +36,7 @@ function AddSchedule() {
     const handleClick = e => {
         e.preventDefault();
       console.log(user)
-        axios.post("http://localhost:3000/schedule", user)
+        axios.post(Api_url+"/schedule", user)
           .then(res => {
             console.log(res);
           })

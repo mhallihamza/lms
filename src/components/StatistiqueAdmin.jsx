@@ -1,25 +1,27 @@
 import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch'
 import { FaDivide } from 'react-icons/fa'
 import { BsPencilSquare, BsFillStopwatchFill } from 'react-icons/bs'
 function StatistiqueAdmin() {
+  const {Api_url}  = useContext(ApiContext) 
   const {
     data: examData,
     err: examError,
     refetch: examRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exam')
+  } = useFetch(Api_url+'/exam')
   const {
     data: exerciceData,
     err: exerciceError,
     refetch: exerciceRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/exercice')
+  } = useFetch(Api_url+'/exercice')
   const {
     data: studentData,
     err: studentError,
     refetch: studentRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/users')
+  } = useFetch(Api_url+'/users')
   let exams = examData.data?.length
   let exercices = exerciceData.data?.length
   let students = studentData.data?.filter((user) => user.role === "student").length;
@@ -28,7 +30,7 @@ function StatistiqueAdmin() {
   return (
     <div>
 <div class="mt-4">
-        <div class="flex flex-wrap -mx-6">
+        <div class="flex flex-wrap -mx-4">
           <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
             <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
               <div class="p-3 rounded-full bg-green-600 bg-opacity-75">

@@ -26,10 +26,10 @@ import AddStudent from './components/AddStudent'
 import CreateSchedule from './components/CreateSchedule'
 import Course from './components/Course'
 import AddSchedule from './components/AddSchedule'
-import { AuthContext } from './context/AuthContext';
-import { useContext, useEffect, useState } from 'react';
+import AddPayment from './components/AddPayment'
+import AllPayment from './components/AllPayment'
+import AddExam from './components/AddExam'
 function App() {
-  const {user,loading,error,dispatch} = useContext(AuthContext)
   return (
     <div>
      <Routes>
@@ -61,6 +61,9 @@ function App() {
          <Route path='Schedule' element={<CreateSchedule/>}/>
          <Route path='Course' element={<Course/>}/>
          <Route path='AddSchedule' element={<AddSchedule/>}/>
+         <Route path='AddPayment' element={<AddPayment/>}/>
+         <Route path='AllPayment' element={<AllPayment/>}/>
+         <Route path='Exam/Add' element={<AddExam/>}/>
       </Route>
      </Routes>
     </div>

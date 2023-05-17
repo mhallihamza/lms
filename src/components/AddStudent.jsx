@@ -1,11 +1,13 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import axios from 'axios';
 import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
+import { ApiContext } from '../context/ApiContext';
 function AddStudent() {
+  const Api_url = useContext(ApiContext)
     const navigate = useNavigate();
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
+    const {data,err,refetch} = useFetch(Api_url+"/class");
      let cls = data.data;
     const [user, setuser] = useState({
         username:undefined,
@@ -24,7 +26,7 @@ function AddStudent() {
     const handleClick = e => {
         e.preventDefault();
       console.log(user)
-        axios.post("https://lmsapi-mhallihamza.onrender.com/register", user)
+        axios.post(Api_url+"/register", user)
           .then(res => {
             console.log(res);
           })

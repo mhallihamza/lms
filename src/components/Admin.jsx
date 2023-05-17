@@ -1,16 +1,29 @@
 import React from 'react'
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
 import { FiTrash2,FiEdit2 } from "react-icons/fi";
 import { BiShow } from "react-icons/bi";
-
+import axios from 'axios';
 function Admin() {
+    const {Api_url} = useContext(ApiContext);
     const navigate = useNavigate();
-    const {user,loading,error,dispatch} = useContext(AuthContext)
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/users")
+    const {data,err,refetch} = useFetch(Api_url+"/users")
     let users = data.data?.filter(user=>user.role==="admin");
+    const handleDeleteUser = (id) => {
+      axios
+        .delete(`${Api_url}/user/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          // Here you can update the exams list in your state
+          users = refetch();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
     console.log(users);
   return (
     <div>
@@ -30,9 +43,9 @@ function Admin() {
         </div>
         <h2 className='text-center'>{user.username}</h2>
         <ul className='flex  mt-4 h-12 border-t-2 items-center'>
-           <li className='pt-4 pl-7 w-[5rem] cursor-pointer h-12 border-r-2 hover:bg-blue-100'><a><FiTrash2 className='h-5 w-5'/></a></li>
-           <li className='pt-4 pl-7 w-[5rem] cursor-pointer h-12 border-r-2 hover:bg-blue-100'><a><BiShow className='h-5 w-5'/></a></li>
-           <li className='pt-4  pl-7 h-12 cursor-pointer  w-[5.8rem] hover:bg-blue-100'><a><FiEdit2 className='h-5 w-5'/></a></li>
+           <li className='pt-4 pl-7 w-[5rem] cursor-pointer h-12 border-r-2 hover:bg-red-300'><button onClick={()=>handleDeleteUser(user._id)}><FiTrash2 className='h-5 w-5'/></button></li>
+           <li className='pt-4 pl-7 w-[5rem] cursor-pointer h-12 border-r-2 hover:bg-blue-300'><a><BiShow className='h-5 w-5'/></a></li>
+           <li className='pt-4  pl-7 h-12 cursor-pointer  w-[5.8rem] hover:bg-green-300'><a><FiEdit2 className='h-5 w-5'/></a></li>
         </ul>
     </div>
   ))}

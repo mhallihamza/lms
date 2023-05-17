@@ -3,8 +3,10 @@ import { useContext } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router'
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import axios from 'axios';
 function Demo() {
+    const {Api_url} = useContext(ApiContext);
     const {user,loading,error,dispatch} = useContext(AuthContext)
     const navigate = useNavigate();
     const [credentials, setcredentials] = useState({
@@ -18,7 +20,7 @@ function Demo() {
         e.preventDefault();
         dispatch({type: "LOGIN_START"});
       
-        axios.post("https://lmsapi-mhallihamza.onrender.com/login", credentials)
+        axios.post(Api_url+"/login", credentials)
           .then(res => {
             dispatch({type: "LOGIN_SUCCESS", payload: res.data});
             navigate("/Accueil")
@@ -44,7 +46,7 @@ function Demo() {
 		<div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
 		<div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
 	</div>
-	<section class="bg-gray-50 dark:bg-gray-900 lg:pl-[5.2rem] lg:-mt-4 lg:w-[37%]">
+	<section class="bg-gray-50 dark:bg-gray-900 lg:pl-[5.2rem] lg:-mt-12 lg:w-[37%]">
   <div class="flex flex-col items-center justify-center py-8 mx-auto md:h-screen lg:py-0">
       <a href="#" class=" flex items-center mb-4 text-2xl font-semibold text-gray-900 dark:text-white">
           <img class="w-16 h-16 mr-2" src="/images/brand1.png" alt="logo"></img> 

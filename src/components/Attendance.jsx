@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 const Attendance = () => {
-  const {user,loading,error,dispatch} = useContext(AuthContext)
-  const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/attendance/"+ user._id);
+  const {Api_url} = useContext(ApiContext)
+  const {user,loading,error,dispatch} = useContext(AuthContext);
+  const {data,err,refetch} = useFetch(Api_url+"/attendance/"+ user._id);
   let attendances = data.data;
   const [filterStatus, setFilterStatus] = useState("");
   const handleFilter = (status) => {

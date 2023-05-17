@@ -2,17 +2,19 @@ import React from 'react';
 import { useState,useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 import axios from 'axios';
 const AttendanceList = () => {
+  const {Api_url} = useContext(ApiContext)
     const {user,loading,error,dispatch} = useContext(AuthContext)
     let cls;
     if(user.role==="admin"){
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class");
+    const {data,err,refetch} = useFetch(Api_url+"/class");
      cls = data.data;
     console.log(cls);
     } else {
-      const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class/teacher/"+ user._id);
+      const {data,err,refetch} = useFetch(Api_url+"/class/teacher/"+ user._id);
       cls = data.data;
     console.log(cls);
     }
@@ -31,7 +33,7 @@ const AttendanceList = () => {
     }, [newcls]);
     const handleget = event => {
       event.preventDefault();
-      axios.get("https://lmsapi-mhallihamza.onrender.com/attendance/"+date+"/" + selectcls)
+      axios.get(Api_url+"/attendance/"+date+"/" + selectcls)
             .then((res)=>{
               setattendance(res.data ? res.data.students : null)
               const filter = cls.filter(cs=>cs.name===selectcls);
@@ -66,7 +68,7 @@ const AttendanceList = () => {
   
   const handlepost = e => {
     e.preventDefault();
-    axios.post("https://lmsapi-mhallihamza.onrender.com/attendance", {date,class:selectcls,students:create})
+    axios.post(Api_url+"/attendance", {date,class:selectcls,students:create})
       .then(res => {
         console.log(res)
       })
@@ -76,7 +78,7 @@ const AttendanceList = () => {
   }
   const handleput = e => {
     e.preventDefault();
-    axios.put("https://lmsapi-mhallihamza.onrender.com/attendance", {date,class:selectcls,students:attendance})
+    axios.put(Api_url+"/attendance", {date,class:selectcls,students:attendance})
       .then(res => {
         console.log(res)
       })
@@ -100,8 +102,8 @@ const AttendanceList = () => {
       </select>
       <button onClick={handleget} className={`bg-blue-700 text-white w-[10rem] border border-blue-700 rounded text-l  py-1 hover:bg-blue-800" ${selectcls && date ? "" : "hidden"}`}>Get Student List</button>
     </div>
-    <div className="overflow-x-auto">
-      <div className='border-2 h-12 rounded-sm border-solid pl-4 pt-2 text-lg font-semibold'>Attendances</div>
+    <div className="overflow-x-auto bg-white">
+      <div className='border-2 h-12 shadow-sm rounded-t-md border-solid pl-4 pt-2 text-lg font-semibold'>Attendances</div>
       <table className="table-auto w-full">
         <thead className='bg-slate-200'>
           <tr>
@@ -147,8 +149,8 @@ const AttendanceList = () => {
 
       </table>
     </div>
-    <div className='border-x-2 h-6 rounded-sm border-solid'></div>
-    <div className='border-2 h-16 rounded-sm border-solid bg-slate-200'>
+    <div className=' border-x-2 h-6 border-solid'></div>
+    <div className='border-2 h-16 shadow-sm rounded-b-md  border-solid bg-slate-200'>
         <button onClick={attendance===null ? handlepost : handleput}  className='bg-blue-700 ml-4 mt-3 text-white w-[6.5rem] border border-blue-700 rounded text-l  py-[0.3rem] hover:bg-blue-800'>Save All</button>
     </div>
     </>

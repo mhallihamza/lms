@@ -1,9 +1,9 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
-export default function Accueil({socket}) {
+export default function Accueil({Api_url}) {
   return (
     <div>
-    <Sidebar socket = {socket}/>
+    <Sidebar Api_url = {Api_url}/>
     </div>
   )
 }

@@ -1,8 +1,10 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useContext} from 'react';
 import axios from 'axios';
+import { ApiContext } from '../context/ApiContext';
 import { useNavigate } from 'react-router';
 function AddTeacher() {
+  const Api_url = useContext(ApiContext)
     const navigate = useNavigate();
     const [user, setuser] = useState({
         username:undefined,
@@ -19,7 +21,7 @@ function AddTeacher() {
     const handleClick = e => {
         e.preventDefault();
       console.log(user)
-        axios.post("https://lmsapi-mhallihamza.onrender.com/register", user)
+        axios.post(Api_url+"/register", user)
           .then(res => {
             console.log(res);
           })

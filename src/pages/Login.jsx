@@ -3,8 +3,10 @@ import { useContext } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router'
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import axios from 'axios';
 function Login() {
+    const {Api_url} = useContext(ApiContext);
     const [credentials, setcredentials] = useState({
        email : undefined,
        password : undefined
@@ -17,7 +19,7 @@ function Login() {
         e.preventDefault();
         dispatch({type: "LOGIN_START"});
       
-        axios.post("https://lmsapi-mhallihamza.onrender.com/login", credentials)
+        axios.post(Api_url+"/login", credentials)
           .then(res => {
             dispatch({type: "LOGIN_SUCCESS", payload: res.data});
             navigate("/Accueil")
@@ -47,8 +49,7 @@ function Login() {
 	<section class="bg-gray-50 dark:bg-gray-900 lg:pl-[5.2rem] lg:-mt-12 lg:w-[37%]">
   <div class="flex flex-col items-center justify-center py-8 mx-auto md:h-screen lg:py-0">
       <a href="#" class="  flex items-center mb-4 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"></img>
-          Flowbite    
+          <img class="w-16 h-16 mr-2" src="/images/brand1.png" alt="logo"></img>   
       </a>
       <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

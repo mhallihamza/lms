@@ -3,114 +3,78 @@ import { useState } from 'react';
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router';
+import { ApiContext } from '../context/ApiContext';
+import ConfirmDialog from './ConfirmDialog';
 import useFetch from '../hooks/useFetch';
 import axios from 'axios';
 function CreateExam() {
-    const [showForm, setShowForm] = useState(false);
-    const [selectcourse,setSelectcourse] = useState("");
-    const handleCreateButtonClick = () => {
-      setShowForm(true);
-    };
+    const {Api_url} = useContext(ApiContext);
+    const navigate = useNavigate();
+    const [selectedExamId, setSelectedExamId] = useState(null);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(null);
-
-  const toggleDropdown = (index) => {
+    const handleConfirm = () => {
+      if (selectedExamId) {
+        axios
+          .delete(`${Api_url}/exam/${selectedExamId}`)
+          .then((response) => {
+            console.log(response.data);
+            // Here you can update the exams list in your state
+            refetch();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      setIsConfirmOpen(false);
+      setSelectedExamId(null);
+    };
+  
+    const handleCancel = () => {
+      setIsConfirmOpen(false);
+      setSelectedExamId(null);
+    };
+    const toggleDropdown = (index) => {
     if (dropdownOpen === index) {
       setDropdownOpen(null);
     } else {
       setDropdownOpen(index);
     }
   };
-    console.log(showForm);
-    const [create, setcreate] = useState({
-        date : undefined,
-        subject : undefined,
-        startTime : undefined,
-        endTime : undefined,
-        room : undefined,
-        course : undefined,
-     });
-     const handleChange =  (e)=>{
-        setcreate((prev)=> ({ ...prev, [e.target.id]:e.target.value}))
-    };
   const {user,loading,error,dispatch} = useContext(AuthContext)
   if(user.role==="admin"){
-    var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam")
+    var {data,err,refetch} = useFetch(Api_url+"/exam")
     var exams = data.data;
-    var {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course")
-    var courses = courseData.data;
     } else {
-      var {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course/teacher/"+ user._id)
-      var courses = courseData.data;
-      var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exam/teacher/"+ user._id)
+      var {data,err,refetch} = useFetch(Api_url+"/exam/teacher/"+ user._id)
       var exams = data.data;
     }
   console.log(exams);
   const handleDeleteExam = (id) => {
-    axios
-      .delete(`https://lmsapi-mhallihamza.onrender.com/exam/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        // Here you can update the exams list in your state
-        exams = refetch();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setSelectedExamId(id);
+    setDropdownOpen(null);
+    setIsConfirmOpen(true);
   };
-  const handleClick = e => {
-    e.preventDefault();
-    console.log(create);
-    axios.post("https://lmsapi-mhallihamza.onrender.com/exam", create)
-      .then(res => {
-        console.log(res)
-        axios.get(`https://lmsapi-mhallihamza.onrender.com/course`)
-        .then(res => {
-          const course = res.data?.filter(course=>course._id===create.course);
-          console.log(res);
-          axios.get(`https://lmsapi-mhallihamza.onrender.com/class`)
-          .then(res => {
-            console.log(res);
-            const filteredClasses = res.data?.filter(cls => {
-              const clsCourses = cls.courses.map(course => course._id);
-              return clsCourses.includes(course._id);
-            });
-            const studentIds = filteredClasses.flatMap(cls => cls.students.map(student => student._id));
-            console.log(studentIds);
-            axios.post("https://lmsapi-mhallihamza.onrender.com/notification", {
-              sender : user._id,
-              message : `you have exam in ${create.subject} after ${parseInt(((new Date(create.date)).getTime() - (new Date()).getTime()) / (24 * 60 * 60 * 1000),10)} days`,
-              receiverIds : studentIds
-            })
-            .then(notification=>{
-              console.log(notification)
-            })
-            .catch(err => {
-              console.log(err);
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-      exams = refetch();
-  }
-  
+
   return (
     <div className='relative'>
-         <div className={showForm ? 'blur-sm ' : ''}>
+      <div>
+      {isConfirmOpen && (
+        <ConfirmDialog
+          message="Are you sure you want to delete this exam?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+      )}
+      </div>
+         <div>
         <div className='flex justify-between mb-8'>
             <div>
             <h2 className='text-xl'>Exams List</h2>
             <h4 className='text-slate-600'>Exam</h4>
             </div>
-            <button onClick={handleCreateButtonClick} className='bg-blue-700 text-white w-28 border border-blue-700 rounded text-xl h-9 pb-9 hover:bg-blue-800'><span className='text-2xl text-gray-300'>+</span> Create</button>
+            <button onClick={()=>navigate("/Accueil/Exam/Add")} className='bg-blue-700 text-white w-28 border border-blue-700 rounded text-xl h-9 pb-9 hover:bg-blue-800'><span className='text-2xl text-gray-300'>+</span> Create</button>
         </div>
         <div className="flex flex-wrap gap-4">
       {exams &&
@@ -143,7 +107,7 @@ function CreateExam() {
                     <FaEdit className="inline-block mr-2" />
                     Edit
                   </button>
-                  <button
+                  <button 
                     onClick={() => handleDeleteExam(exam._id)}
                     className="block px-4 py-2 text-sm w-24 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     type="button"
@@ -169,133 +133,6 @@ function CreateExam() {
         ))}
     </div>
         </div>
-        {showForm && (
-        <div className="absolute bottom-[27rem] lg:top-5 -left-2 lg:left-64 h-screen flex justify-center items-center bg-white">
-           <div className="z-10 inset-0 overflow-y-auto">
-  <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div className="fixed inset-0 transition-opacity">
-      <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-    </div>
-    <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <div className="bg-gray-50 px-4 py-3 w-[20rem] lg:w-[45rem] border-b border-gray-200 sm:px-6">
-        <h2 className="text-xl font-bold">Create Exam</h2>
-        <div className="absolute top-0 right-0 p-2">
-          <button
-            className="text-gray-400 hover:text-gray-500 focus:outline-none"
-            aria-label="Close"
-            onClick={()=>setShowForm(false)}
-          >
-            <svg
-              className="h-6 w-6 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path
-                className="heroicon-ui"
-                d="M6.7 5.3a1 1 0 011.4 0L12 10.6l3.9-3.9a1 1 0 111.4 1.4L13.4 12l3.9 3.9a1 1 0 01-1.4 1.4L12 13.4l-3.9 3.9a1 1 0 01-1.4-1.4L10.6 12 6.7 8.1a1 1 0 010-1.4z"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <form className="bg-white px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="date">
-            Date
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="date"
-            type="date"
-            placeholder="Date"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 font-bold mb-2"
-            htmlFor="subject"
-          >
-            Subject
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="subject"
-            type="text"
-            placeholder="Subject"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 font-bold mb-2"
-            htmlFor="start-time"
-          >
-            Start Time
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="startTime"
-            type="time"
-            placeholder="Start Time"
-            onChange={handleChange}
-            />
-            </div>
-            <div className="mb-4">
-            <label
-                     className="block text-gray-700 font-bold mb-2"
-                     htmlFor="end-time"
-                   >
-            End Time
-            </label>
-            <input
-                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                     id="endTime"
-                     type="time"
-                     placeholder="End Time"
-                     onChange={handleChange}
-                   />
-            </div>
-            <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="room">
-            Room
-            </label>
-            <input
-                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                     id="room"
-                     type="text"
-                     placeholder="Room"
-                     onChange={handleChange}
-                   />
-            </div>
-            <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="course">
-            Course
-            </label>
-            <select className= 'border-2 w-full py-2 px-3 rounded text-gray-700' id='course' onChange={handleChange}>
-               <option selected disabled hidden>Select Course</option>
-                 {courses && courses.map(cs=>(
-               <option key={cs._id} value={cs._id}>{cs.title}</option>
-                 ))}
-            </select>
-            </div>
-            <div className="flex items-center justify-between">
-            <button
-                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                     type="button"
-                     onClick={handleClick} 
-                   >
-            Create
-            </button>
-            </div>
-            </form>
-            </div>
-              </div>
-            </div> 
-
-        </div>
-      )}
     </div>
   )
 }

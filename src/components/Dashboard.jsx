@@ -7,24 +7,26 @@ import StatistiqueAdmin from './StatistiqueAdmin';
 import useFetch from '../hooks/useFetch';
 import { useContext, useState, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import { PieChart, Pie, Cell } from "recharts";
 function Dashboard() {
+  const {Api_url} = useContext(ApiContext)
   const {user,loading,error,dispatch} = useContext(AuthContext)
   console.log(user);
-  const {data:dataSchedule,err:errorSchedule,refetch:refecthSchedule} = useFetch("https://lmsapi-mhallihamza.onrender.com/schedule/student/"+user._id)
+  const {data:dataSchedule,err:errorSchedule,refetch:refecthSchedule} = useFetch(Api_url+"/schedule/student/"+user._id)
   const schedules = dataSchedule.data;
   console.log(schedules);
-  const {data: attendanceData,err: attendanceError,refetch: attendanceRefetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/attendance/"+ user._id);
+  const {data: attendanceData,err: attendanceError,refetch: attendanceRefetch} = useFetch(Api_url+"/attendance/"+ user._id);
   const {
     data: studentDataA,
     err: studentErrorA,
     refetch: studentRefetchA,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/users')
+  } = useFetch(Api_url+'/users')
   const {
     data: studentData,
     err: studentError,
     refetch: studentRefetch,
-  } = useFetch('https://lmsapi-mhallihamza.onrender.com/class/teacher/' + user._id)
+  } = useFetch(Api_url+'/class/teacher/' + user._id)
   const total = attendanceData.data?.length;
   console.log(attendanceData.data);
   const presentCount  = attendanceData.data?.filter((attendance) =>
@@ -95,8 +97,8 @@ console.log(Fcount);
       {user.role === "student" ? <Statistique/> : user.role === "instructor" ? <StatistiqueTeacher/> : <StatistiqueAdmin/>}
     </div>
     <div className={`${user.role==="student" ? '' :'hidden'}`}>
-      <div className='flex'>
-    <div className='w-[23rem] border rounded-sm'>
+      <div className='lg:flex'>
+    <div className='lg:w-[22.5rem] w-full border shadow-lg rounded-lg'>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>About Me</div>
       <div>
         <img className='h-28 w-28 rounded-full my-4 ml-32' src={user.image ? user.image : "https://karismedicalgroup.com.au/wp-content/uploads/2019/11/default-male.jpg"}></img>
@@ -116,7 +118,7 @@ console.log(Fcount);
         </div>
       </div>
     </div>
-    <div className='w-[23rem] border rounded-sm lg:ml-7 relative mt-5  lg:mt-0'>
+    <div className='lg:w-[23rem] w-full  bg-white border shadow-lg rounded-lg lg:ml-7 relative mt-5  lg:mt-0'>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Attendance</div>
       <div className='absolute left-[17rem] bottom-80'>
         <div className='flex'>
@@ -132,7 +134,7 @@ console.log(Fcount);
         <div className='ml-4'>Late</div>
         </div>
       </div>
-    <PieChart width={400} height={400} className='mt-8'>
+    <PieChart width={380} height={400} className='mt-8'>
       <Pie
       className='h-96 w-96'
         data={data}
@@ -157,7 +159,7 @@ console.log(Fcount);
     </div>
     </div>
     </div>
-    <div className={`w-[23rem] border relative rounded-sm lg:ml-7 ${user.role==="instructor" ? '' :'hidden'}`}>
+    <div className={`lg:w-[23rem] border relative shadow-lg rounded-lg lg:ml-7 ${user.role==="instructor" ? '' :'hidden'}`}>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Students</div>
       <div className='absolute left-[15rem] bottom-[22rem]'>
         <div className='flex'>
@@ -191,9 +193,9 @@ console.log(Fcount);
       <div className='border-r w-36 pl-2 pr-2 bg-purple-400'>Femunun - <span>{Fcount}</span></div>
     </div>
     </div>
-    <div className={`w-[23rem] border relative rounded-sm lg:ml-7 ${user.role==="admin" ? '' :'hidden'}`}>
+    <div className={`lg:w-[23rem] border relative shadow-lg rounded-lg lg:ml-7 ${user.role==="admin" ? '' :'hidden'}`}>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Students</div>
-      <div className='absolute left-[15rem] bottom-[22rem]'>
+      <div className='absolute left-[14.5rem] bottom-[22rem]'>
         <div className='flex'>
         <div className='rounded-full h-4 w-4 bg-[#3944BC] mt-1 '></div>
         <div className='ml-4'>Masculun</div>
@@ -203,7 +205,7 @@ console.log(Fcount);
         <div className='ml-4'>Femunun</div>
         </div>
       </div>
-    <PieChart width={400} height={400} className='mt-8'>
+    <PieChart width={380} height={380} className='mt-8'>
       <Pie
       className='h-96 w-96'
         data={data}

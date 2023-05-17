@@ -1,10 +1,12 @@
 import React from 'react'
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 function Exercice() {
+  const {Api_url} = useContext(ApiContext)
     const {user,loading,error,dispatch} = useContext(AuthContext)
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exercice/"+ user._id)
+    const {data,err,refetch} = useFetch(Api_url+"/exercice/"+ user._id)
     let exercices = data.data;
     console.log(exercices);
   return (
@@ -13,11 +15,11 @@ function Exercice() {
         <h1 className='text-xl font-semibold'>Exercices</h1>
         <h2 className='text-slate-700'>Exercices</h2>
     </div>
-    <div className='mt-6'>
-    <div className='border-x-2 border-t-2 border-solid border-slate-100 mb-0 h-12 flex items-center'>
+    <div className='mt-6 bg-white'>
+    <div className='border-x-2 border-t-2 rounded-t-md border-solid border-slate-100 mb-0 h-12 flex items-center'>
         <h3 className='ml-4 font-bold'>Exercices</h3>
     </div>
-    <div className='border-2 border-solid border-slate-100 py-4 pl-4'>
+    <div className='border-2 mb-6 rounded-b-md border-solid border-slate-100 py-4 px-4'>
     <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

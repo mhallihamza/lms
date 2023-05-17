@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import useFetch from '../hooks/useFetch';
+import { ApiContext } from '../context/ApiContext';
 function Class() {
+  const {Api_url} = useContext(ApiContext)
   const [name, setName] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -15,8 +17,8 @@ function Class() {
       setDropdownOpen(index);
     }
   };
-  const { data, err, refetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/users");
-  const { data: classData, err: classError, refetch: classRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/class");
+  const { data, err, refetch } =useFetch(Api_url+"/users");
+  const { data: classData, err: classError, refetch: classRefetch } =useFetch(Api_url+"/class");
   const [showForm, setShowForm] = useState(false);
     const handleCreateButtonClick = () => {
       setShowForm(true);
@@ -27,7 +29,7 @@ function Class() {
   console.log(instructors);
   const handleDeleteClass = (id) => {
     axios
-      .delete(`https://lmsapi-mhallihamza.onrender.com/class/${id}`)
+      .delete(`${Api_url}/class/${id}`)
       .then((response) => {
         console.log(response.data);
         // Here you can update the classes list in your state
@@ -40,7 +42,7 @@ function Class() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.post('https://lmsapi-mhallihamza.onrender.com/class', {
+    axios.post(Api_url+'/class', {
       name,
       startTime,
       endTime,

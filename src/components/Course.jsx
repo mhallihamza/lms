@@ -3,16 +3,18 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import useFetch from '../hooks/useFetch';
+import { ApiContext } from '../context/ApiContext';
 function Class() {
+  const {Api_url} = useContext(ApiContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [instructor, setInstructor] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [cls, setcls] = useState('');
-  const { data, err, refetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/users");
-  const { data: courseData, err: courseError, refetch: courseRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/course");
-  const { data: classData, err: classError, refetch: classRefetch } =useFetch("https://lmsapi-mhallihamza.onrender.com/class");
+  const { data, err, refetch } =useFetch(Api_url+"/users");
+  const { data: courseData, err: courseError, refetch: courseRefetch } =useFetch(Api_url+"/course");
+  const { data: classData, err: classError, refetch: classRefetch } =useFetch(Api_url+"/class");
   const [showForm, setShowForm] = useState(false);
     const handleCreateButtonClick = () => {
       setShowForm(true);
@@ -26,7 +28,7 @@ function Class() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.post('https://lmsapi-mhallihamza.onrender.com/course', {
+    axios.post(Api_url+'/course', {
       title,
       description,
       instructor,

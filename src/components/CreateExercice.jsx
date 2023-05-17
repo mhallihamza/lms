@@ -2,9 +2,12 @@ import React from 'react'
 import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { FiTrash2,FiEdit2 } from "react-icons/fi";
 import useFetch from '../hooks/useFetch';
+import { ApiContext } from '../context/ApiContext';
 import axios from 'axios';
 function CreateExercice() {
+   const {Api_url} = useContext(ApiContext);
     const [showForm, setShowForm] = useState(false);
     const handleCreateButtonClick = () => {
       setShowForm(true);
@@ -23,20 +26,32 @@ function CreateExercice() {
     };
   const {user,loading,error,dispatch} = useContext(AuthContext)
   if(user.role==="admin"){
-    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course")
+    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch(`${Api_url}/course`)
     var courses = courseData.data;
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exercice")
-   var exercices = data.data;
+    var {data,err,refetch} = useFetch(`${Api_url}/exercice`)
+    var exercices = data.data;
   } else {
-    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch("https://lmsapi-mhallihamza.onrender.com/course/teacher/"+ user._id)
+    const {data:courseData,err:courseError,refetch:courseReftech} = useFetch(Api_url+"/course/teacher/"+ user._id)
     var courses = courseData.data;
-    var {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/exercice/teacher/"+ user._id)
+    var {data,err,refetch} = useFetch(Api_url+"/exercice/teacher/"+ user._id)
     var exercices = data.data;
   }
   console.log(exercices);
+  const handleDeleteExercice = (id) => {
+    axios
+      .delete(`${Api_url}/exercice/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        // Here you can update the exams list in your state
+        exercices = refetch();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleClick = e => {
     e.preventDefault();
-    axios.post("https://lmsapi-mhallihamza.onrender.com/exercice", create)
+    axios.post(Api_url+"/exercice", create)
       .then(res => {
         console.log(res)
         exercices = refetch();
@@ -59,10 +74,10 @@ function CreateExercice() {
             </div>
             <button onClick={handleCreateButtonClick} className='bg-blue-700 text-white w-28 border border-blue-700 rounded text-xl h-9 pb-9 hover:bg-blue-800'><span className='text-2xl text-gray-300'>+</span> Create</button>
         </div>
-        <div className='border-x-2 border-t-2 border-solid border-slate-100 mb-0 h-12 flex items-center'>
+        <div className='border-x-2 shadow-sm rounded-t-md border-t-2 border-solid border-slate-100 mb-0 h-12 flex items-center'>
         <h3 className='ml-4 font-bold'>Exercices</h3>
     </div>
-    <div className='border-2 border-solid border-slate-100 py-4 pl-4'>
+    <div className='border-2 rounded-b-md shadow-sm border-solid mb-6 border-slate-100 py-4 px-4'>
     <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -96,8 +111,13 @@ function CreateExercice() {
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               {exercice.course.title}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+              <td class="px-6 flex justify-around py-4 whitespace-nowrap text-right text-sm font-medium">
+                   <button onClick={()=>handleDeleteExercice(exercice._id)}>
+                   <FiTrash2 className='h-5 w-5 text-red-500'/>
+                   </button>
+                  <button>
+                   <FiEdit2 className='h-5 w-5 text-green-400'/>
+                  </button>
               </td>
             </tr>
             ))}
@@ -111,7 +131,7 @@ function CreateExercice() {
     </div>
         </div>
         {showForm && (
-        <div className="absolute -bottom-[4rem] lg:top-5 left-2 lg:left-64 h-screen flex justify-center items-center bg-white">
+        <div className="absolute -bottom-[12rem] lg:top-5 left-2 lg:left-64 h-screen flex justify-center items-center bg-white">
            <div className="z-10 inset-0 overflow-y-auto ">
   <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
     <div className="fixed inset-0 transition-opacity">

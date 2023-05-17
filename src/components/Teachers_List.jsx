@@ -2,11 +2,13 @@ import React from 'react'
 import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch';
 import { BiUser } from 'react-icons/bi';
 function Teachers_List() {
+    const {Api_url}  = useContext(ApiContext) 
     const {user,loading,error,dispatch} = useContext(AuthContext)
-    const {data,err,refetch} = useFetch("https://lmsapi-mhallihamza.onrender.com/class/student/"+ user._id)
+    const {data,err,refetch} = useFetch(Api_url+"/class/student/"+ user._id)
     console.log(data.data);
     let teachers = data.data;
   return (

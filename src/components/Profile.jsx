@@ -2,9 +2,11 @@ import React from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ApiContext } from '../context/ApiContext';
 import { data } from 'autoprefixer';
 import axios from 'axios';
 function Profile() {
+  const {Api_url} = useContext(ApiContext);
   const {user,loading,error,dispatch} = useContext(AuthContext)
   const [username,setusername] = useState(user.username);
   const [email,setemail] = useState(user.email);
@@ -30,7 +32,7 @@ function Profile() {
         };
         const {_id} = user;
         console.log(_id);
-        await axios.put('https://lmsapi-mhallihamza.onrender.com/user/'+_id,updateUser)
+        await axios.put(Api_url+'/user/'+_id,updateUser)
         let old=JSON.parse(localStorage.getItem("user")) || null;
 old.image=url
 localStorage.setItem("user",JSON.stringify(old))
