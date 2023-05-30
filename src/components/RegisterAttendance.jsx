@@ -36,7 +36,7 @@ const AttendanceList = () => {
       axios.get(Api_url+"/attendance/"+date+"/" + selectcls)
             .then((res)=>{
               setattendance(res.data ? res.data.students : null)
-              const filter = cls.filter(cs=>cs.name===selectcls);
+              const filter = cls.filter(cs=>cs._id===selectcls);
               setnewcls(filter);
               console.log(newcls)
             })
@@ -97,7 +97,7 @@ const AttendanceList = () => {
       <select className='bg-slate-200 border-2 border-cyan-600 rounded' onChange={(e)=>setselectcls(e.target.value)}>
         <option selected disabled hidden>Select Class</option>
         {cls && cls.map(cs=>(
-          <option key={cs._id} value={cs.name}>{cs.name}</option>
+          <option key={cs._id} value={cs._id}>{cs.name}</option>
         ))}
       </select>
       <button onClick={handleget} className={`bg-blue-700 text-white w-[10rem] border border-blue-700 rounded text-l  py-1 hover:bg-blue-800" ${selectcls && date ? "" : "hidden"}`}>Get Student List</button>

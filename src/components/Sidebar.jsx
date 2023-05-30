@@ -9,17 +9,29 @@ import axios from "axios";
 import useFetch from '../hooks/useFetch';
 import Clock from "./Clock";
 function Sidebar() {
-  const {Api_url} =  useContext(ApiContext);
+    const {Api_url} =  useContext(ApiContext);
+    const [paymentExists, setPaymentExists] = useState(false);
+    const currentDate = new Date();
+    const currentMonthYear = `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`;
     const {user,loading,error,dispatch} = useContext(AuthContext)
     const [show,setShow] = useState(false)
     const navigate = useNavigate();
     const {data,err,refetch} = useFetch(Api_url+"/notification/"+ user?._id)
+    const { data : DataPayment, err : ErrPayment, refetch : RefetchPayment } = useFetch(Api_url + '/payment/student/' + user?._id)
+    let payments = DataPayment.data?.some(payment=>payment.month === currentMonthYear);
+    console.log(payments);
     let notification = data.data;
     console.log(notification);
     useEffect(() => {
+      if (user?.role === 'student' && payments === false) {
+        setPaymentExists(true);
+      }
+      console.log(paymentExists)
+    }, [user?.role, payments]);
+    useEffect(() => {
       console.log(user); 
       if(user){
-
+        
       }
       else{
         navigate("/login")
@@ -28,7 +40,7 @@ function Sidebar() {
     const removeNotification = () =>{
       notification = [];
       axios
-      .delete(Api_url+`/notification`)
+      .delete(Api_url+`/notification/student/${user._id}`)
       .then((response) => {
         console.log(response.data);
         // Here you can update the classes list in your state
@@ -314,6 +326,10 @@ function Sidebar() {
             </ul>
           </div>
         </li>
+        <li class={user.role === "student" ? "" : "hidden"}><Link class="flex items-center gap-x-3 py-2 px-2 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300" to="StudentPayments">
+       <CiMoneyBill className="h-5 w-5"/>
+            Payment
+          </Link></li>
         <li  class={`hs-accordion ${user.role === "admin" ? "" : "hidden"}`} id="projects-accordion">
           <a class="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white" href="javascript:;">
             <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -381,6 +397,22 @@ function Sidebar() {
   </div>
 
   <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+  {paymentExists && (
+       <div className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+       <div className="flex items-start">
+         <div className="flex-shrink-0">
+           <svg className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+           </svg>
+         </div>
+         <div className="ml-3">
+           <p className="text-sm leading-5 font-medium">
+           You have not made a payment for this month. Please make a payment as soon as possible.
+           </p>
+         </div>
+       </div>
+     </div>
+      )}
      <Outlet />
   </div>
         </div>

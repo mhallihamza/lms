@@ -63,7 +63,7 @@ const Attendance = () => {
         {attendances && filteredAttendanceData.map((attendance) => (
           <div key={attendance._id} className="mb-4">
             <p className="text-gray-700 font-medium mb-2">
-              Class: {attendance.class}
+              Class: {attendance.class.name}
             </p>
             <p className="text-gray-500 mb-2">
               Date: {new Date(attendance.date).toDateString()}

@@ -58,7 +58,7 @@ function CreateExam() {
   };
 
   return (
-    <div className='relative'>
+    <div>
       <div>
       {isConfirmOpen && (
         <ConfirmDialog

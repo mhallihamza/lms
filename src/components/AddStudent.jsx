@@ -5,7 +5,7 @@ import useFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router';
 import { ApiContext } from '../context/ApiContext';
 function AddStudent() {
-  const Api_url = useContext(ApiContext)
+  const {Api_url} = useContext(ApiContext)
     const navigate = useNavigate();
     const {data,err,refetch} = useFetch(Api_url+"/class");
      let cls = data.data;
@@ -86,7 +86,7 @@ function AddStudent() {
       <select className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"' id='class' onChange={handleChange}>
         <option selected disabled hidden>Select Class</option>
         {cls && cls.map(cs=>(
-          <option key={cs._id} value={cs.name}>{cs.name}</option>
+          <option key={cs._id} value={cs._id}>{cs.name}</option>
         ))}
       </select>
     </div>

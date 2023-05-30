@@ -4,7 +4,7 @@ import { ApiContext } from '../context/ApiContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 function AddAdmin() {
-    const Api_url = useContext(ApiContext)
+    const {Api_url} = useContext(ApiContext)
     const navigate = useNavigate();
     const [user, setuser] = useState({
         username:undefined,

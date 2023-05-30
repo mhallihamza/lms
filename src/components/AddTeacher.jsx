@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ApiContext } from '../context/ApiContext';
 import { useNavigate } from 'react-router';
 function AddTeacher() {
-  const Api_url = useContext(ApiContext)
+  const {Api_url} = useContext(ApiContext)
     const navigate = useNavigate();
     const [user, setuser] = useState({
         username:undefined,

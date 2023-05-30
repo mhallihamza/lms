@@ -47,7 +47,7 @@ function Demo() {
 		<div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
 	</div>
 	<section class="bg-gray-50 dark:bg-gray-900 lg:pl-[5.2rem] lg:-mt-12 lg:w-[37%]">
-  <div class="flex flex-col items-center justify-center py-8 mx-auto md:h-screen lg:py-0">
+  <div class="flex flex-col items-center mt-12 justify-center py-8 mx-auto md:h-screen lg:py-0">
       <a href="#" class=" flex items-center mb-4 text-2xl font-semibold text-gray-900 dark:text-white">
           <img class="w-16 h-16 mr-2" src="/images/brand1.png" alt="logo"></img> 
       </a>

@@ -28,6 +28,7 @@ import Course from './components/Course'
 import AddSchedule from './components/AddSchedule'
 import AddPayment from './components/AddPayment'
 import AllPayment from './components/AllPayment'
+import StudentPayments from './components/StudentPayments'
 import AddExam from './components/AddExam'
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
          <Route path='AddSchedule' element={<AddSchedule/>}/>
          <Route path='AddPayment' element={<AddPayment/>}/>
          <Route path='AllPayment' element={<AllPayment/>}/>
+         <Route path='StudentPayments' element={<StudentPayments/>}/>
          <Route path='Exam/Add' element={<AddExam/>}/>
       </Route>
      </Routes>

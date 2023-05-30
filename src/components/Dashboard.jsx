@@ -107,7 +107,7 @@ console.log(Fcount);
         <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
         <div className='ml-5 mb-1 text-md font-semibold'>Email <span className='pl-[5rem] text-base font-normal'>{user.email}</span></div>
         <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
-        <div className='ml-5 mb-1 text-md font-semibold'>Class <span className='pl-[8rem] text-base font-normal'>{user.class}</span></div>
+        <div className='ml-5 mb-1 text-md font-semibold'>Class <span className='pl-[8rem] text-base font-normal'>{user.class?.name}</span></div>
         <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
         <div className='ml-5 mb-1 text-md font-semibold'>Parent <span className='pl-[7rem] text-base font-normal'>{user.parent}</span></div>
         <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>

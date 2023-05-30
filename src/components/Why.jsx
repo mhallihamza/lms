@@ -6,7 +6,7 @@ function Why() {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-            Why Choose Our LMS?
+            Why Choose Our SMS?
           </h2>
           <div className="flex flex-col md:flex-row md:-mx-4">
             <div className="md:w-1/3 px-4">
@@ -29,7 +29,7 @@ function Why() {
                 </div>
                 <h3 className="text-xl font-medium mb-2">Easy to Use</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Our LMS is user-friendly and easy to navigate, so you can
+                  Our SMS is user-friendly and easy to navigate, so you can
                   focus on learning, not technology.
                 </p>
               </div>
@@ -54,7 +54,7 @@ function Why() {
                 </div>
                 <h3 className="text-xl font-medium mb-2">Flexible Learning</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Our LMS allows you to learn at your own pace and on your own
+                  Our SMS allows you to learn at your own pace and on your own
                   schedule, so you can fit learning into your busy life.
                 </p>
               </div>
@@ -79,7 +79,7 @@ function Why() {
                 </div>
                 <h3 className="text-xl font-medium mb-2">Engaging Content</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Our LMS is filled with engaging multimedia content, including
+                  Our SMS is filled with engaging multimedia content, including
                   videos, quizzes, and interactive exercises.
                 </p>
               </div>
