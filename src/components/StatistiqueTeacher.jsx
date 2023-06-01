@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { ApiContext } from '../context/ApiContext';
 import useFetch from '../hooks/useFetch'
-import { FaDivide } from 'react-icons/fa'
 import { BsPencilSquare, BsFillStopwatchFill } from 'react-icons/bs'
 function StatistiqueTeacher() {
   const {Api_url}  = useContext(ApiContext) 

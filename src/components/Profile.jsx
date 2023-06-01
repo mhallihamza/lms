@@ -3,13 +3,10 @@ import { useContext } from 'react';
 import { useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { ApiContext } from '../context/ApiContext';
-import { data } from 'autoprefixer';
 import axios from 'axios';
 function Profile() {
   const {Api_url} = useContext(ApiContext);
   const {user,loading,error,dispatch} = useContext(AuthContext)
-  const [username,setusername] = useState(user.username);
-  const [email,setemail] = useState(user.email);
   const [file,setfile]=useState("");
   const [info,setinfo]=useState({});
 
