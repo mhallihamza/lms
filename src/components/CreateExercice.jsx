@@ -63,7 +63,7 @@ function CreateExercice() {
         console.log(res)
         exercices = refetch();
         console.log(exercices)
-       setShowForm(false)
+       setShowForm(false);
       })
       .catch(err => {
         console.log(err)
@@ -85,7 +85,7 @@ console.log(updatedExercice);
       .catch((error) => {
         console.log(error);
       });
-      selectedExerciceId(null);
+      setSelectedExerciceId(null);
   };
   const handleClose = () => {
     setShowEditExercice(false);

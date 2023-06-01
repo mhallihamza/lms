@@ -74,6 +74,7 @@ console.log(updatedUser);
       .then((response) => {
         console.log(response.data);
         // Here you can update the user's profile in your state or refetch the user data
+        refetch();
         setShowEditProfileModal(false);
       })
       .catch((error) => {

@@ -21,7 +21,7 @@ function Student() {
   const [editEmail, setEditEmail] = useState('');
   const [editPassword, setEditPassword] = useState('');
   const [editParent, setEditParent] = useState('');
-  const [editClass, setEditClass] = useState('');
+  const [editClass, setEditClass] = useState(undefined);
   const [editGender, setEditGender] = useState('');
   const [editAdmissiondate, setEditAdmissiondate] = useState('');
   const {data: clsData,err: clsError,refetch:clsRefetch} = useFetch(Api_url+"/class");
@@ -284,6 +284,7 @@ console.log(updatedUser);
                 <input
                   id="password"
                   type="password"
+                  required
                   value={editPassword}
                   onChange={(e) => setEditPassword(e.target.value)}
                   className="text-lg pl-3 border rounded-md"

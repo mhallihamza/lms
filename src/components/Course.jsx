@@ -8,6 +8,7 @@ function Course() {
   const { Api_url } = useContext(ApiContext);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [showEditCourse, setShowEditCourse] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -41,7 +42,17 @@ function Course() {
     setIsConfirmOpen(false);
     setSelectedCourseId(null);
   };
-
+  const handleEditCourse = (course) => {
+    setTitle(course.title);
+    setDescription(course.description);
+    setInstructor(course.instructor);
+    setStartTime(course.startTime.split("T")[0]);
+    setEndTime(course.endTime.split("T")[0]);
+    setCls(course.cls);
+    setDropdownOpen(null);
+    setSelectedCourseId(course._id);
+    setShowEditCourse(true);
+  };
   const handleCancel = () => {
     setIsConfirmOpen(false);
     setSelectedCourseId(null);
@@ -52,6 +63,30 @@ function Course() {
   } else {
     setDropdownOpen(index);
   }
+};
+const handleSave = () => {
+  // Make a PUT request to update the user's profile with the edited values
+  const updatedCourse = {
+      title,
+      description,
+      instructor,
+      startTime,
+      endTime,
+      classId: cls
+  };
+console.log(updatedCourse);
+  axios
+    .put(`${Api_url}/course/${selectedCourseId}`, updatedCourse)
+    .then((response) => {
+      console.log(response.data);
+      courseRefetch();
+      // Here you can update the user's profile in your state or refetch the user data
+      setShowEditCourse(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    setSelectedCourseId(null);
 };
 const  handleSubmit = (e) => {
   e.preventDefault();
@@ -77,6 +112,15 @@ const handleDeleteCourse = (id) => {
   setSelectedCourseId(id);
   setDropdownOpen(null);
   setIsConfirmOpen(true);
+};
+const handleClose = () => {
+  setShowEditCourse(false);
+  setTitle("");
+    setDescription("");
+    setInstructor("");
+    setStartTime("");
+    setEndTime("");
+    setCls("");
 };
   return (
     <div>
@@ -124,6 +168,7 @@ const handleDeleteCourse = (id) => {
                   className="z-10 absolute text-base list-none bg-white divide-y divide-gray-100 rounded-lg top-2 shadow w-24 left-2 dark:bg-gray-700 transition-opacity opacity-100"
                 >
                   <button
+                    onClick={() => handleEditCourse(course)}
                     className="block px-4 py-2 text-sm w-24 text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     type="button"
                   >
@@ -159,6 +204,124 @@ const handleDeleteCourse = (id) => {
         className='text-gray-400 hover:text-gray-500 focus:outline-none'
         aria-label='Close'
         onClick={() => setShowForm(false)}
+      >
+        <svg
+          className='h-6 w-6 fill-current'
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 24 24'
+        >
+          <path
+            className='heroicon-ui'
+            d='M6.7 5.3a1 1 0 011.4 0L12 10.6l3.9-3.9a1 1 0 111.4 1.4L13.4 12l3.9 3.9a1 1 0 01-1.4 1.4L12 13.4l-3.9 3.9a1 1 0 01-1.4-1.4L10.6 12 6.7 8.1a1 1 0 010-1.4z'
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <form className='bg-white px-8 pt-6 pb-8 mb-4'>
+    <div className='grid grid-cols-2 gap-4'>
+    <div className='mb-4'>
+      <label className='block text-gray-700 font-bold mb-2' htmlFor='title'>
+        Title
+      </label>
+      <input
+        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+        id='title'
+        type='text'
+        placeholder='Title'
+        onChange={(e) => setTitle(e.target.value)}
+      />
+    </div>
+    <div className='mb-4'>
+      <label className='block text-gray-700 font-bold mb-2' htmlFor='description'>
+        Description
+      </label>
+      <input
+        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+        id='description'
+        type='text'
+        placeholder='Description'
+        onChange={(e) => setDescription(e.target.value)}
+      />
+    </div>
+    <div className='mb-4'>
+      <label className='block text-gray-700 font-bold mb-2' htmlFor='instructor'>
+        Teacher
+      </label>
+      <select className='border-2 rounded h-10 w-full pl-2' onChange={(e) => setInstructor(e.target.value)}>
+        <option selected disabled hidden>
+          Select Teacher
+        </option>
+        {instructors && instructors.map((instructor) => (
+          <option key={instructor._id} value={instructor._id}>
+            {instructor.username}
+          </option>
+        ))}
+      </select>
+    </div>
+    <div className='mb-4'>
+      <label className='block text-gray-700 font-bold mb-2' htmlFor='starttime'>
+        Start Time
+      </label>
+      <input
+        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+        id='startime'
+        type='date'
+        placeholder='Start Time'
+        onChange={(e) => setStartTime(e.target.value)}
+      />
+    </div>
+    <div className='mb-4'>
+      <label className='block text-gray-700 font-bold mb-2' htmlFor='endtime'>
+        End Time
+      </label>
+      <input
+        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+        id='endtime'
+        type='date'
+        placeholder='End Time'
+        onChange={(e) => setEndTime(e.target.value)}
+      />
+    </div>
+    <div className='mb-4'>
+      <label className='block text-gray-700 font-bold mb-2' htmlFor='class'>
+        Class
+      </label>
+      <select className='border-2 rounded h-10 w-full pl-2' onChange={(e) => setCls(e.target.value)}>
+        <option selected disabled hidden>
+          Select Class
+        </option>
+        {classes && classes.map((cs) => (
+          <option key={cs._id} value={cs._id}>
+            {cs.name}
+          </option>
+        ))}
+      </select>
+    </div>
+    </div>
+    <div className='flex mt-3 items-center justify-between'>
+      <button
+        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+        type='button'
+        onClick={handleSubmit}
+      >
+        Create
+      </button>
+    </div>
+  </form>
+        </div>
+      </div>
+      )}
+      {showEditCourse && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-80">
+        <div className="bg-white top-8 w-[22rem] lg:left-32 lg:top-6 lg:w-[32rem] md:w-[28rem] rounded-lg relative">
+        <div className='bg-gray-50 px-4 py-4 border-b rounded-t-lg border-gray-200 sm:px-6 relative'>
+    <h2 className='text-xl font-bold'>Edit Course</h2>
+    <div className='absolute top-0 right-0 p-2'>
+      <button
+        className='text-gray-400 hover:text-gray-500 focus:outline-none'
+        aria-label='Close'
+        onClick={handleClose}
       >
         <svg
           className='h-6 w-6 fill-current'
@@ -236,6 +399,7 @@ const handleDeleteCourse = (id) => {
       <input
         className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
         id='endtime'
+        value={endTime}
         type='date'
         placeholder='End Time'
         onChange={(e) => setEndTime(e.target.value)}
@@ -257,15 +421,20 @@ const handleDeleteCourse = (id) => {
       </select>
     </div>
     </div>
-    <div className='flex mt-3 items-center justify-between'>
-      <button
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-        type='button'
-        onClick={handleSubmit}
-      >
-        Create
-      </button>
-    </div>
+    <div className='flex justify-center'>
+              <button
+                onClick={handleSave}
+                className='bg-blue-700 text-white w-28 border border-blue-700 rounded text-xl h-9 pb-9 hover:bg-blue-800 mr-2'
+              >
+                Save
+              </button>
+              <button
+                onClick={handleClose}
+                className='bg-gray-300 text-gray-700 w-28 border border-gray-300 rounded text-xl h-9 pb-9 hover:bg-gray-400'
+              >
+                Cancel
+              </button>
+            </div>
   </form>
         </div>
       </div>

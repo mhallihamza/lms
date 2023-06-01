@@ -119,7 +119,7 @@ function StatistiqueAdmin() {
           </div>
           <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/4 xl:mt-0">
             <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-              <div class="p-3 rounded-full bg-pink-600 bg-opacity-75">
+              <div class="p-3 rounded-full bg-orange-600 bg-opacity-75">
               <BsPencilSquare className="text-white text-3xl" />
               </div>
 

@@ -30,6 +30,7 @@ import AddPayment from './components/AddPayment'
 import AllPayment from './components/AllPayment'
 import StudentPayments from './components/StudentPayments'
 import AddExam from './components/AddExam'
+import UpdateExam from './components/UpdateExam'
 function App() {
   return (
     <div>
@@ -66,6 +67,7 @@ function App() {
          <Route path='AllPayment' element={<AllPayment/>}/>
          <Route path='StudentPayments' element={<StudentPayments/>}/>
          <Route path='Exam/Add' element={<AddExam/>}/>
+         <Route path='Exam/Update/:id' element={<UpdateExam/>}/>
       </Route>
      </Routes>
     </div>

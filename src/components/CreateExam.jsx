@@ -101,6 +101,7 @@ function CreateExam() {
                   className="z-10 absolute text-base list-none bg-white divide-y divide-gray-100 rounded-lg top-2 shadow w-24 left-2 dark:bg-gray-700 transition-opacity opacity-100"
                 >
                   <button
+                    onClick={()=>navigate("/Accueil/Exam/Update/" + exam._id)}
                     className="block px-4 py-2 text-sm w-24 text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     type="button"
                   >

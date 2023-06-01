@@ -78,6 +78,7 @@ function Class() {
     .then(response => {
       console.log('Class created:', response.data);
       classes = classRefetch();
+      setShowForm(false)
       // Do something with the response, e.g. redirect to the new class page
     })
     .catch(error => {
@@ -88,7 +89,7 @@ function Class() {
   const handleSave = () => {
     // Make a PUT request to update the user's profile with the edited values
     const updatedClass = {
-      Name: editName,
+      name: editName,
       startTime: editStartTime,
       endTime : editEndTime
     };
@@ -213,7 +214,6 @@ console.log(updatedClass);
        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
        id="name"
        type="text"
-       value={name}
        placeholder="Name"
        onChange={(e)=>setName(e.target.value)}
      />
@@ -229,7 +229,6 @@ console.log(updatedClass);
        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
        id="startime"
        type="date"
-       value={startTime}
        placeholder="Start Time"
        onChange={(e)=>setStartTime(e.target.value)}
        />
