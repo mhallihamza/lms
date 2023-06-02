@@ -13,9 +13,9 @@ function Feature() {
             <img src="./images/landing3.svg" alt="Communication avec les parents" class="h-32 svg"></img>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold mb-4">Une communication instantanée et efficace avec les parents</h3>
+            <h3 class="text-xl font-bold mb-4">Instant and efficient communication with parents</h3>
             <p class="text-gray-700 leading-loose">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean malesuada justo at ante vulputate, non maximus tellus interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            Our school management system provides instant and efficient communication with parents, fostering strong school-parent partnerships. It enables seamless interaction, sharing updates, announcements, and progress reports, ensuring timely and effective communication for students' growth. This feature strengthens relationships, promotes collaboration, and supports overall student development.
             </p>
           </div>
         </div>
@@ -26,9 +26,9 @@ function Feature() {
             <img src="./images/landing2.svg" alt="Logiciel d'efficacité et optimisation" class="h-32"></img>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold mb-4">Beaucoup plus qu’un logiciel d’efficacité et optimisation et simplifie la vie aux enseignants</h3>
+            <h3 class="text-xl font-bold mb-4">Much more than efficiency and optimization software and makes life easier for teachers</h3>
             <p class="text-gray-700 leading-loose">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean malesuada justo at ante vulputate, non maximus tellus interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            Our school management system goes beyond being a software for efficiency and optimization; it simplifies the lives of teachers, providing them with tools and features that streamline their tasks and save time. It empowers teachers to focus on teaching and enables them to manage administrative tasks effortlessly.
             </p>
           </div>
         </div>
@@ -39,10 +39,9 @@ function Feature() {
             <img src="./images/landing3.svg" alt="Troisième fonctionnalité" class="h-32 svg"></img>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold mb-4">Troisième fonctionnalité</h3>
+            <h3 class="text-xl font-bold mb-4">Streamlined administrative tasks</h3>
             <p class="text-gray-700 leading-loose">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean malesuada justo at ante vulputate, non maximus tellus interdum. Pellentesque habitant morbi tristique
-</p>
+            Our school management system simplifies administrative tasks for school staff, automating processes such as attendance tracking, timetable management, and student record maintenance. This feature reduces paperwork, saves time, and improves overall efficiency in managing administrative responsibilities.</p>
 </div>
     </div>
     </div>

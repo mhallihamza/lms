@@ -97,30 +97,52 @@ console.log(Fcount);
       {user.role === "student" ? <Statistique/> : user.role === "instructor" ? <StatistiqueTeacher/> : <StatistiqueAdmin/>}
     </div>
     <div className={`${user.role==="student" ? '' :'hidden'}`}>
-      <div className='lg:flex'>
-    <div className='lg:w-[22.5rem] w-full border shadow-lg rounded-lg'>
+      <div className='flex flex-wrap gap-6'>
+    <div className='lg:w-[23rem] w-[100%] md:w-[20rem] border shadow-lg rounded-lg'>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>About Me</div>
       <div>
-        <img className='h-28 w-28 rounded-full my-4 ml-32' src={user.image ? user.image : "https://karismedicalgroup.com.au/wp-content/uploads/2019/11/default-male.jpg"}></img>
-        <div className='ml-7'>
-        <div className='ml-5 mb-1 text-md font-semibold'>Name <span className='pl-[5.4rem] text-base font-normal'>{user.username}</span></div>
-        <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
-        <div className='ml-5 mb-1 text-md font-semibold'>Email <span className='pl-[5rem] text-base font-normal'>{user.email}</span></div>
-        <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
-        <div className='ml-5 mb-1 text-md font-semibold'>Class <span className='pl-[8rem] text-base font-normal'>{user.class?.name}</span></div>
-        <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
-        <div className='ml-5 mb-1 text-md font-semibold'>Parent <span className='pl-[7rem] text-base font-normal'>{user.parent}</span></div>
-        <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
-        <div className='ml-5 mb-1 text-md font-semibold'>Admitted <span className='pl-[4rem] text-base font-normal'>{new Date(user.admissiondate).toDateString()}</span></div>
-        <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
-        <div className='ml-5 mb-1 text-md font-semibold'>Gender <span className='pl-[7.1rem] text-base font-normal'>{user.gender}</span></div>
-        <div class="border-b border-gray-300 mb-4 w-[20rem]"></div>
+        <img className='h-28 w-28 rounded-full my-4 mx-auto' src={user.image ? user.image : "https://karismedicalgroup.com.au/wp-content/uploads/2019/11/default-male.jpg"}></img>
+        <div className='mx-5'>
+        <div className='grid gap-1 mb-4'>
+              <div className='flex'>
+                <p className='text-md font-semibold ml-2 mb-1 flex-grow'>Name</p>
+                <p className='text-lg ml-4 mr-2 text-right'>{user.username}</p>
+              </div>
+              <div class="border-b border-gray-300 mb-4 w-full"></div>
+              <div className='flex'>
+                <p className='text-md font-semibold ml-2 mb-1 flex-grow'>Email</p>
+                <p className='text-lg ml-4 mr-2 text-right'>{user.email}</p>
+              </div>
+              <div class="border-b border-gray-300 mb-4 w-full"></div>
+              <div className='flex'>
+                <p className='text-md font-semibold ml-2 mb-1 flex-grow'>Class</p>
+                <p className='text-lg ml-4 mr-2 text-right'>{user.class?.name}</p>
+              </div>
+              <div class="border-b border-gray-300 mb-4 w-full"></div>
+              <div className='flex'>
+                <p className='text-md font-semibold ml-2 mb-1 flex-grow'>Gender</p>
+                <p className='text-lg ml-4 mr-2 text-right'>{user.gender}</p>
+              </div>
+              <div class="border-b border-gray-300 mb-4 w-full"></div>
+              <div className='flex'>
+                <p className='text-md ml-2 font-semibold mb-1 flex-grow'>Parent</p>
+                <p className='text-lg mr-2 ml-4 text-right'>{user.parent}</p>
+              </div>
+              <div class="border-b border-gray-300 mb-4 w-full"></div>
+              <div className='flex'>
+                <p className='text-md ml-2 font-semibold mb-1 flex-grow'>Admitted</p>
+                <p className='text-lg mr-2 ml-4 text-right'>
+                  {new Date(user.admissiondate).toLocaleDateString()}
+                </p>
+              </div>
+              <div class="border-b border-gray-300 mb-4 w-full"></div>
+            </div>
+</div>
         </div>
-      </div>
     </div>
-    <div className='lg:w-[23rem] w-full  bg-white border shadow-lg rounded-lg lg:ml-7 relative mt-5  lg:mt-0'>
+    <div className='lg:w-[23rem] w-[100%] md:w-auto bg-white border shadow-lg rounded-lg relative'>
       <div className='border-b h-12 pl-4 pt-3 text-lg font-medium'>Attendance</div>
-      <div className='absolute left-[17rem] bottom-80'>
+      <div className='absolute lg:left-[16rem] right-4 top-16 lg:bottom-80'>
         <div className='flex'>
         <div className='rounded-full h-4 w-4 bg-[#00FF00] mt-1 '></div>
         <div className='ml-4'>Present</div>
@@ -134,7 +156,7 @@ console.log(Fcount);
         <div className='ml-4'>Late</div>
         </div>
       </div>
-    <PieChart width={380} height={400} className='mt-8'>
+    <PieChart width={325} height={400} className='mt-8'>
       <Pie
       className='h-96 w-96'
         data={data}
@@ -151,7 +173,7 @@ console.log(Fcount);
         ))}
       </Pie>
     </PieChart>
-    <div  className='flex border absolute bottom-12 ml-10'>
+    <div  className='flex border absolute bottom-12 left-1/2 transform -translate-x-1/2'>
       <div className='border-r px-2 w-24 bg-green-400'>Present - <span>{presentCount}</span></div>
       <div className='border-r w-24 pl-2 pr-2 bg-red-400'>Absent - <span>{absentCount}</span></div>
       <div className='w-24 bg-yellow-200 pl-4'>Late - <span></span>{lateCount}</div>

@@ -170,16 +170,16 @@ console.log(updatedUser);
             </div>
             <div className='grid grid-row-3 gap-4 mb-4'>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Username:</p>
-                <p className='text-lg ml-32'>{selectedUser.username}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Username:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.username}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Email:</p>
-                <p className='text-lg ml-32'>{selectedUser.email}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Email:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.email}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Date of Registration:</p>
-                <p className='text-lg ml-10'>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Date of Registration:</p>
+                <p className='text-lg ml-4 text-right'>
                   {new Date(selectedUser.createdOn).toLocaleDateString()}
                 </p>
               </div>
@@ -195,6 +195,7 @@ console.log(updatedUser);
               onClick={handleCloseProfile}
             />
             <h2 className='text-2xl font-bold  mb-4'>Edit Profile</h2>
+            <form>
             <div className='grid grid-row-3 gap-4 mb-4'>
               <div className='flex flex-col'>
                 <label className='text-lg font-semibold mb-2'>Username:</label>
@@ -219,6 +220,7 @@ console.log(updatedUser);
                 <input
                   type='password'
                   value={editPassword}
+                  required
                   onChange={(e) => setEditPassword(e.target.value)}
                   className='text-lg pl-3 border rounded-md'
                 />
@@ -238,6 +240,7 @@ console.log(updatedUser);
                 Cancel
               </button>
             </div>
+            </form>
           </div>
         </div>
       )}

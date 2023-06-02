@@ -257,6 +257,7 @@ console.log(updatedUser);
                 <input
                   id="password"
                   type="password"
+                  required
                   value={editPassword}
                   onChange={(e) => setEditPassword(e.target.value)}
                   className="text-lg pl-3 border rounded-md"

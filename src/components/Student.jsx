@@ -180,28 +180,28 @@ console.log(updatedUser);
             </div>
             <div className='grid grid-row-3 gap-4 mb-4'>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Username:</p>
-                <p className='text-lg ml-28'>{selectedUser.username}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Username:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.username}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Email:</p>
-                <p className='text-lg ml-32'>{selectedUser.email}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Email:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.email}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Class:</p>
-                <p className='text-lg ml-48'>{selectedUser.class.name}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Class:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.class.name}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Gender:</p>
-                <p className='text-lg ml-44'>{selectedUser.gender}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Gender:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.gender}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Parent:</p>
-                <p className='text-lg ml-44'>{selectedUser.parent}</p>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Parent:</p>
+                <p className='text-lg ml-4 text-right'>{selectedUser.parent}</p>
               </div>
               <div className='flex'>
-                <p className='text-lg font-semibold mb-2'>Date of Admission:</p>
-                <p className='text-lg ml-16'>
+                <p className='text-lg font-semibold mb-2 flex-grow'>Date of Admission:</p>
+                <p className='text-lg ml-4 text-right'>
                   {new Date(selectedUser.admissiondate).toLocaleDateString()}
                 </p>
               </div>
